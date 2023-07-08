@@ -9,6 +9,7 @@
     "lint": "next lint",
     "lint:fix": "eslint --fix .",
     "format": "prettier --cache --write .",
+    "check-type": "tsc --noEmit --pretty --project tsconfig.json",
     "prepare": "husky install"
   },
   "dependencies": {
