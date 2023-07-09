@@ -10,7 +10,7 @@
     "lint:fix": "eslint --fix .",
     "format": "prettier --cache --write .",
     "check-type": "tsc --noEmit --pretty --project tsconfig.json",
-    "prepare": "husky install"
+    "prepare": "chmod ug+x .husky/* && husky install"
   },
   "dependencies": {
     "@types/node": "20.4.1",
