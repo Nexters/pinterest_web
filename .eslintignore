@@ -8,5 +8,6 @@ build
 dist
 next-env.d.ts
 next.config.js
+tailwind.config.js
 yarn.lock
 README.md
