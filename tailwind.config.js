@@ -1,4 +1,5 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -12,18 +13,6 @@ module.exports = {
       fontFamily: {
         montserrat: ['var(--font-montserrat)', ...fontFamily.sans],
         pretendard: ['var(--font-pretendard)', ...fontFamily.sans],
-      },
-      fontSize: {
-        'main-headline': ['1.25rem', { fontWeight: '700' }],
-        'sub-headline': ['1.125rem', { fontWeight: '700', lineHeight: '1.3' }],
-        body1: ['1rem', { fontWeight: '400', lineHeight: '1.5' }],
-        body2: ['0.875rem', { fontWeight: '400', lineHeight: '1.5' }],
-        caption: ['0.75rem', { fontWeight: '400', lineHeight: '1.5' }],
-        button1: ['1rem', { fontWeight: '600' }],
-        button2: ['0.875rem', { fontWeight: '600' }],
-        'accent-eng': ['1rem', { fontWeight: '600' }],
-        'body-eng': ['0.875rem', { fontWeight: '600', lineHeight: '1.5' }],
-        'caption-eng': ['0.75rem', { fontWeight: '400', lineHeight: '1.3' }],
       },
       colors: {
         primary: '#202020',
@@ -39,5 +28,66 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addComponents }) {
+      addComponents({
+        '.text-main-headline': {
+          fontFamily: 'var(--font-pretendard)',
+          fontSize: '1.25rem',
+          fontWeight: '700',
+        },
+        '.text-sub-headline': {
+          fontFamily: 'var(--font-pretendard)',
+          fontSize: '1.125rem',
+          fontWeight: '700',
+          lineHeight: '1.3',
+        },
+        '.text-body1': {
+          fontFamily: 'var(--font-pretendard)',
+          fontSize: '1rem',
+          fontWeight: '400',
+          lineHeight: '1.5',
+        },
+        '.text-body2': {
+          fontFamily: 'var(--font-pretendard)',
+          fontSize: '0.875rem',
+          fontWeight: '400',
+          lineHeight: '1.5',
+        },
+        '.text-caption': {
+          fontFamily: 'var(--font-pretendard)',
+          fontSize: '0.75rem',
+          fontWeight: '400',
+          lineHeight: '1.5',
+        },
+        '.text-button1': {
+          fontFamily: 'var(--font-pretendard)',
+          fontSize: '1rem',
+          fontWeight: '600',
+        },
+        '.text-button2': {
+          fontFamily: 'var(--font-pretendard)',
+          fontSize: '0.875rem',
+          fontWeight: '600',
+        },
+        '.text-accent-eng': {
+          fontFamily: 'var(--font-montserrat)',
+          fontSize: '1rem',
+          fontWeight: '600',
+        },
+        '.text-body-eng': {
+          fontFamily: 'var(--font-montserrat)',
+          fontSize: '0.875rem',
+          fontWeight: '600',
+          lineHeight: '1.5',
+        },
+        '.text-caption-eng': {
+          fontFamily: 'var(--font-montserrat)',
+          fontSize: '0.75rem',
+          fontWeight: '400',
+          lineHeight: '1.3',
+        },
+      });
+    }),
+  ],
 };
