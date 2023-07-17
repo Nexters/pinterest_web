@@ -9,7 +9,7 @@
   "endOfLine": "auto",
   "bracketSameLine": false,
   "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
-  "tailwindFunctions": ["clsx", "classnames", "cva", "cn"],
+  "tailwindFunctions": ["clsx", "classnames", "cva", "cn", "twMerge"],
   "pluginSearchDirs": false,
   "importOrder": [
     "^next",
