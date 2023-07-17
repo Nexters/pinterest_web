@@ -21,6 +21,12 @@ export function Icon({
   const Icon = icons[iconType];
 
   return (
-    <Icon fill={color} width={width} height={height} className={clsx({ 'fill-primary': !color })} {...restProps} />
+    <Icon
+      fill={color}
+      width={width}
+      height={height}
+      className={clsx({ 'fill-grayscale-500': !color })}
+      {...restProps}
+    />
   );
 }
