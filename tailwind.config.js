@@ -25,6 +25,18 @@ module.exports = {
         'body-eng': ['0.875rem', { fontWeight: '600', lineHeight: '1.5' }],
         'caption-eng': ['0.75rem', { fontWeight: '400', lineHeight: '1.3' }],
       },
+      colors: {
+        primary: '#202020',
+        grayscale: {
+          100: '#F3F3F3',
+          200: '#E8E8E8',
+          300: '#BCBCBC',
+          400: '#797979',
+          500: '#3F3F3F',
+          600: '#202020',
+          700: '#1B1717',
+        },
+      },
     },
   },
   plugins: [],
