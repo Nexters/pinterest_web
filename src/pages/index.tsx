@@ -1,3 +1,5 @@
+import { Icon } from '@/components/shared';
+
 export default function Home() {
   return (
     <main>
@@ -11,6 +13,10 @@ export default function Home() {
       <p className='font-montserrat text-accent-eng'>Montserrat accent</p>
       <p className='font-montserrat text-body-eng'>Montserrat body</p>
       <p className='font-montserrat text-caption-eng'>Montserrat caption</p>
+      <Icon iconType='Edit' />
+      <Icon iconType='Menu' />
+      <Icon iconType='Plus' />
+      <Icon iconType='RightArrow' />
     </main>
   );
 }
