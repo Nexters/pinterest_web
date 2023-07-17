@@ -29,60 +29,60 @@ module.exports = {
     },
   },
   plugins: [
-    plugin(function ({ addComponents }) {
+    plugin(function ({ addComponents, theme }) {
       addComponents({
         '.text-main-headline': {
-          fontFamily: 'var(--font-pretendard)',
+          fontFamily: theme('fontFamily.pretendard'),
           fontSize: '1.25rem',
           fontWeight: '700',
         },
         '.text-sub-headline': {
-          fontFamily: 'var(--font-pretendard)',
+          fontFamily: theme('fontFamily.pretendard'),
           fontSize: '1.125rem',
           fontWeight: '700',
           lineHeight: '1.3',
         },
         '.text-body1': {
-          fontFamily: 'var(--font-pretendard)',
+          fontFamily: theme('fontFamily.pretendard'),
           fontSize: '1rem',
           fontWeight: '400',
           lineHeight: '1.5',
         },
         '.text-body2': {
-          fontFamily: 'var(--font-pretendard)',
+          fontFamily: theme('fontFamily.pretendard'),
           fontSize: '0.875rem',
           fontWeight: '400',
           lineHeight: '1.5',
         },
         '.text-caption': {
-          fontFamily: 'var(--font-pretendard)',
+          fontFamily: theme('fontFamily.pretendard'),
           fontSize: '0.75rem',
           fontWeight: '400',
           lineHeight: '1.5',
         },
         '.text-button1': {
-          fontFamily: 'var(--font-pretendard)',
+          fontFamily: theme('fontFamily.pretendard'),
           fontSize: '1rem',
           fontWeight: '600',
         },
         '.text-button2': {
-          fontFamily: 'var(--font-pretendard)',
+          fontFamily: theme('fontFamily.pretendard'),
           fontSize: '0.875rem',
           fontWeight: '600',
         },
         '.text-accent-eng': {
-          fontFamily: 'var(--font-montserrat)',
+          fontFamily: theme('fontFamily.montserrat'),
           fontSize: '1rem',
           fontWeight: '600',
         },
         '.text-body-eng': {
-          fontFamily: 'var(--font-montserrat)',
+          fontFamily: theme('fontFamily.montserrat'),
           fontSize: '0.875rem',
           fontWeight: '600',
           lineHeight: '1.5',
         },
         '.text-caption-eng': {
-          fontFamily: 'var(--font-montserrat)',
+          fontFamily: theme('fontFamily.montserrat'),
           fontSize: '0.75rem',
           fontWeight: '400',
           lineHeight: '1.3',
