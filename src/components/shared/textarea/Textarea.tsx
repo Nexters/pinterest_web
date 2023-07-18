@@ -1,4 +1,4 @@
-import type { ChangeEventHandler, InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import type { ChangeEventHandler, TextareaHTMLAttributes } from 'react';
 import { forwardRef, useId } from 'react';
 import { useControllableState } from '@/hooks';
 import { cn } from '@/utils/cn';
