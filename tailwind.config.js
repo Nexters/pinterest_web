@@ -45,7 +45,7 @@ module.exports = {
         '.text-body1': {
           fontFamily: theme('fontFamily.pretendard'),
           fontSize: '1rem',
-          fontWeight: '400',
+          fontWeight: '500',
           lineHeight: '1.5',
         },
         '.text-body2': {
@@ -54,10 +54,15 @@ module.exports = {
           fontWeight: '400',
           lineHeight: '1.5',
         },
+        '.text-body2-accent': {
+          fontFamily: theme('fontFamily.pretendard'),
+          fontSize: '0.875rem',
+          fontWeight: '500',
+        },
         '.text-caption': {
           fontFamily: theme('fontFamily.pretendard'),
           fontSize: '0.75rem',
-          fontWeight: '400',
+          fontWeight: '500',
           lineHeight: '1.5',
         },
         '.text-button1': {
