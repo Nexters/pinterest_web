@@ -35,6 +35,7 @@ module.exports = {
           fontFamily: theme('fontFamily.pretendard'),
           fontSize: '1.25rem',
           fontWeight: '700',
+          lineHeight: '1',
         },
         '.text-sub-headline': {
           fontFamily: theme('fontFamily.pretendard'),
@@ -69,16 +70,19 @@ module.exports = {
           fontFamily: theme('fontFamily.pretendard'),
           fontSize: '1rem',
           fontWeight: '600',
+          lineHeight: '1',
         },
         '.text-button2': {
           fontFamily: theme('fontFamily.pretendard'),
           fontSize: '0.875rem',
           fontWeight: '600',
+          lineHeight: '1',
         },
         '.text-accent-eng': {
           fontFamily: theme('fontFamily.montserrat'),
           fontSize: '1rem',
           fontWeight: '600',
+          lineHeight: '1',
         },
         '.text-body-eng': {
           fontFamily: theme('fontFamily.montserrat'),
