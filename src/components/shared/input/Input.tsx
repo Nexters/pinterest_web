@@ -6,6 +6,7 @@ import { cn } from '@/utils/cn';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   value?: string;
+  caption?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
 }
@@ -29,6 +30,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
       id: idFromProps,
       label,
       value: valueFromProps,
+      caption,
       defaultValue = '',
       maxLength,
       onValueChange,
@@ -53,11 +55,16 @@ export const Input = forwardRef<HTMLInputElement, Props>(
 
     return (
       <div className='flex flex-col text-black'>
-        {label && (
-          <label htmlFor={idFromProps ?? id} className='text-accent-eng mb-3'>
-            {label}
-          </label>
-        )}
+        <div className='mb-3 flex w-full items-center'>
+          {label && (
+            <label htmlFor={idFromProps ?? id} className='text-accent-eng'>
+              {label}
+            </label>
+          )}
+          <span className='text-body2 ml-auto text-grayscale-400'>
+            {value.length}/{maxLength}
+          </span>
+        </div>
         <input
           ref={ref}
           id={idFromProps ?? id}
@@ -71,6 +78,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           )}
           {...restProps}
         />
+        <p className='text-caption mt-1 text-grayscale-400'>{caption}</p>
       </div>
     );
   },
