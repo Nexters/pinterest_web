@@ -68,7 +68,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
           onChange={handleInputChange}
           rows={TEXTAREA_LINES}
           className={cn(
-            'text-body2 w-full resize-none overflow-scroll rounded border border-transparent bg-grayscale-100 px-2.5 py-2 outline-none scrollbar-hide placeholder:text-grayscale-300 focus:border-grayscale-300 active:border-grayscale-300',
+            'text-body2 h-[100px] w-full resize-none overflow-scroll rounded border border-transparent bg-grayscale-100 px-2.5 py-2 outline-none scrollbar-hide placeholder:text-grayscale-300 focus:border-grayscale-300 active:border-grayscale-300',
             { 'border-grayscale-300': value.length > 0 },
             className,
           )}
