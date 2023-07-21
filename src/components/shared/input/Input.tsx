@@ -73,7 +73,6 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           onChange={handleInputChange}
           className={cn(
             'text-body2 w-full rounded border border-transparent bg-grayscale-100 px-2.5 py-2 outline-none placeholder:text-grayscale-300 focus:border-grayscale-300 active:border-grayscale-300',
-            { 'border-grayscale-300': value.length > 0 },
             className,
           )}
           {...restProps}
