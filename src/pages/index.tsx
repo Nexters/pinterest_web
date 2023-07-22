@@ -20,7 +20,7 @@ export default function Home() {
       <Icon iconType='RightArrow' />
       <div className='grid w-[375px] grid-cols-2'>
         <Card
-          thumbnail='/images/nature.jpg'
+          thumbnail='/images/4khd.jpg'
           title='월화수목금토일월화수목금토일'
           description='월화수목금토일월화수목금토일'
         />
