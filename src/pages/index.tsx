@@ -1,4 +1,5 @@
 import { Icon } from '@/components/shared';
+import { Card } from '@/components/shared/Card/Card';
 
 export default function Home() {
   return (
@@ -17,6 +18,14 @@ export default function Home() {
       <Icon iconType='Menu' />
       <Icon iconType='Plus' />
       <Icon iconType='RightArrow' />
+      <div className='grid w-[375px] grid-cols-2'>
+        <Card
+          thumbnail='/images/nature.jpg'
+          title='월화수목금토일월화수목금토일'
+          description='월화수목금토일월화수목금토일'
+        />
+        <Card thumbnail='/images/thumbnail.png' title='Title' description='description' className='flex-1' />
+      </div>
     </main>
   );
 }
