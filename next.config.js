@@ -9,6 +9,10 @@ const nextConfig = {
       use: ["@svgr/webpack"]
     });
     return config;
+  },
+  images: {
+    imageSizes:[16, 32, 48],
+    deviceSizes: [640, 750, 828,]
   }
 }
 
