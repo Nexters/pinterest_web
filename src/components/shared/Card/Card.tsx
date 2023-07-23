@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 export function Card({ thumbnail, title, description, ...restProps }: Props) {
   return (
     <div className='flex w-full flex-col' {...restProps}>
-      <ImageFrame src={thumbnail} alt={title} sizes='200px' priority />
+      <ImageFrame src={thumbnail} alt={title} />
       <div className='gap flex flex-col px-5 py-[6px]'>
         <h2 className='text-sub-headline overflow-hidden text-ellipsis whitespace-nowrap'>{title}</h2>
         <p className='text-body2 overflow-hidden text-ellipsis whitespace-nowrap'>{description}</p>
