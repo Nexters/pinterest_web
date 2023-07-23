@@ -13,13 +13,15 @@ export function ImageFrame({
   ...restProps
 }: Props) {
   return (
-    <Image
-      alt={alt}
-      fill={fill}
-      sizes={sizes}
-      placeholder={placeholder}
-      className={cn('h-auto w-full object-cover object-center', className)}
-      {...restProps}
-    />
+    <div className='relative aspect-[3/4] overflow-hidden'>
+      <Image
+        alt={alt}
+        fill={fill}
+        sizes={sizes}
+        placeholder={placeholder}
+        className={cn('h-auto w-full object-cover object-center', className)}
+        {...restProps}
+      />
+    </div>
   );
 }
