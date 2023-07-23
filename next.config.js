@@ -6,14 +6,14 @@ const nextConfig = {
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
-      use: ["@svgr/webpack"]
+      use: ['@svgr/webpack'],
     });
     return config;
   },
   images: {
-    imageSizes:[16, 32, 48],
-    deviceSizes: [640, 750, 828,]
-  }
-}
+    imageSizes: [16, 32, 48],
+    deviceSizes: [640, 750, 828],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
