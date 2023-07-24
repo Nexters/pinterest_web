@@ -11,8 +11,8 @@ const nextConfig = {
     return config;
   },
   images: {
-    imageSizes: [16, 32, 48],
-    deviceSizes: [640, 750, 828],
+    imageSizes: [128, 256, 384],
+    deviceSizes: [640, 750],
   },
 };
 
