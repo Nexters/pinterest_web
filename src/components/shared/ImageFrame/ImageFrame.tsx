@@ -7,7 +7,7 @@ type Props = ComponentProps<typeof Image>;
 export function ImageFrame({
   alt,
   fill = true,
-  sizes = '200px',
+  sizes = '475px',
   placeholder = 'empty',
   className,
   ...restProps
