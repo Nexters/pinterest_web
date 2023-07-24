@@ -19,8 +19,7 @@ export function Icon({
   ...restProps
 }: Props) {
   const Icon = icons[iconType];
-  console.log(iconType, color, !color)
-  
+
   return (
     <Icon
       fill={color}

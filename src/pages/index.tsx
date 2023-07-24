@@ -19,23 +19,29 @@ export default function Home() {
       <Icon iconType='Menu' />
       <Icon iconType='Plus' />
       <Icon iconType='RightArrow' />
-      <Button color="primary" onClick={()=>console.log('primary')}>
+      <Button variant='primary' onClick={() => console.log('primary')}>
         Primary
       </Button>
-      <Button color="secondary" onClick={()=>console.log('secondary')} disabled>
+      <Button variant='secondary' onClick={() => console.log('secondary')} disabled>
         Secondary
       </Button>
-      <Button color="nudge" onClick={()=>console.log('nudge')}>
+      <Button variant='nudge' onClick={() => console.log('nudge')}>
         그라피 알아보기
-        <Icon iconType="RightChevron"/>
+        <Icon iconType='RightChevron' />
       </Button>
-      <Button color="link" onClick={()=>console.log('link')} className="w-[20rem]">
+      <Button variant='link' onClick={() => console.log('link')} className='w-[20rem]'>
         Link
-        <Icon iconType="RightArrow" color="none"/>
+        <Icon iconType='RightArrow' />
       </Button>
-      <Button color="rounded" onClick={()=>console.log('rounded')}>ADD</Button>
-      <TextButton color="primary" onClick={()=>console.log('textbutton1')}>저장</TextButton>
-      <TextButton color="secondary" onClick={()=>console.log('textbutton2')}>저장</TextButton>
+      <Button variant='rounded' onClick={() => console.log('rounded')}>
+        ADD
+      </Button>
+      <TextButton color='primary' onClick={() => console.log('textbutton1')}>
+        저장
+      </TextButton>
+      <TextButton color='secondary' onClick={() => console.log('textbutton2')}>
+        저장
+      </TextButton>
     </main>
   );
 }
