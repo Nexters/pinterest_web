@@ -1,0 +1,26 @@
+import { ButtonHTMLAttributes, MouseEventHandler, PropsWithChildren } from "react";
+import clsx from "clsx";
+
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement>{
+    color: string;
+    onClick: MouseEventHandler<HTMLElement>; 
+}
+
+const colorMap : { [key: string] : string } = {
+    primary: 'text-black text-button1 p-2.5',
+    secondary: 'text-grayscale-300 text-button1 p-2.5'
+}
+
+export function TextButton({
+    children,
+    color = "primary",
+    onClick,
+    className,
+    ...restProps
+} : PropsWithChildren<Props>){
+    return (
+        <button className={clsx(className, colorMap[color])} onClick={onClick} {...restProps}>
+            {children}
+        </button>
+    )
+}
