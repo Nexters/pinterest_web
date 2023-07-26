@@ -2,6 +2,7 @@ import type { PropsWithChildren } from 'react';
 import { useState } from 'react';
 import type { QueryClientConfig } from '@tanstack/react-query';
 import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 interface Props {
   queryOptions?: QueryClientConfig;
@@ -32,5 +33,10 @@ export function QueryProvider({ children, queryOptions }: PropsWithChildren<Prop
       }),
   );
 
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 }
