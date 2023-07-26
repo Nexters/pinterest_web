@@ -17,6 +17,7 @@
     "^@[^/]+/(.*)$",
     "<THIRD_PARTY_MODULES>",
     "^@/components/(.*)$",
+    "^@/providers/(.*)$",
     "^@/assets/(.*)$",
     "^@/styles/(.*)$",
     "^@/types/(.*)$",
