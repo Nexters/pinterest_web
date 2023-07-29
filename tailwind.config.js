@@ -98,6 +98,12 @@ module.exports = {
           fontWeight: '400',
           lineHeight: '1.3',
         },
+        '.typo-logo1': {
+          fontFamily: theme('fontFamily.montserrat'),
+          fontSize: '1.5rem',
+          fontWeight: '600',
+          lineHeight: '1.5',
+        },
       });
     }),
     require('tailwind-scrollbar-hide'),
