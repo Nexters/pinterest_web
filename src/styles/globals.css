@@ -17,3 +17,13 @@ body {
     margin: auto;
   }
 }
+
+@layer base {
+  html {
+    @apply bg-slate-50;
+  }
+
+  body {
+    @apply bg-white;
+  }
+}
