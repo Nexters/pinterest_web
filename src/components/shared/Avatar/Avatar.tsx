@@ -29,14 +29,14 @@ export function Avatar({
   ...restProps
 }: Props) {
   return (
-    <div className='flex items-center gap-5 text-primary'>
+    <div className={cn('flex items-center gap-5 text-primary', className)}>
       <div className='relative h-20 w-20 cursor-pointer overflow-hidden rounded-full' onClick={onClick}>
         <Image
           src={src}
           alt={nickname}
           width={SIZE}
           height={SIZE}
-          className={cn('object-cover object-center', className)}
+          className='object-cover object-center'
           {...restProps}
         />
       </div>
