@@ -46,7 +46,7 @@ export default function ItemPage({ items = MOCK_DATA, isEdit = false }) {
       <ItemsSlide items={MOCK_DATA} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
       {/** Item Description */}
       <div className='tw-px-5 tw-pt-4'>
-        <p className='tw-text-body1 tw-text-white'>{description}</p>
+        <p className='tw-text-body1 tw-text-gray-300'>{description}</p>
       </div>
     </div>
   );
