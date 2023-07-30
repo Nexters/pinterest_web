@@ -55,16 +55,18 @@ export const Input = forwardRef<HTMLInputElement, Props>(
 
     return (
       <div className='tw-flex tw-flex-col tw-text-black'>
-        <div className='tw-mb-3 tw-flex tw-w-full tw-items-center'>
-          {label && (
+        {label && (
+          <div className='tw-mb-3 tw-flex tw-w-full tw-items-center'>
             <label htmlFor={idFromProps ?? id} className='text-accent-eng'>
               {label}
             </label>
-          )}
-          <span className='tw-text-body2 tw-ml-auto tw-text-grayscale-400'>
-            {value.length}/{maxLength}
-          </span>
-        </div>
+            {maxLength && (
+              <span className='tw-text-body2 tw-ml-auto tw-text-grayscale-400'>
+                {value.length}/{maxLength}
+              </span>
+            )}
+          </div>
+        )}
         <input
           ref={ref}
           id={idFromProps ?? id}
