@@ -2,6 +2,7 @@ import { Icon } from '@/components/shared';
 import { Button } from '@/components/shared/Button';
 import { TextButton } from '@/components/shared/TextButton';
 
+// NOTE : 온보딩 페이지
 export default function Home() {
   return (
     <main>
