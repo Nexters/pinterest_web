@@ -56,14 +56,14 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
     };
 
     return (
-      <div className='flex flex-col text-black'>
-        <div className='mb-3 flex w-full items-center'>
+      <div className='tw-flex tw-flex-col tw-text-black'>
+        <div className='tw-mb-3 tw-flex tw-w-full tw-items-center'>
           {label && (
-            <label htmlFor={idFromProps ?? id} className='text-accent-eng'>
+            <label htmlFor={idFromProps ?? id} className='tw-text-accent-eng'>
               {label}
             </label>
           )}
-          <span className='text-body2 ml-auto text-grayscale-400'>
+          <span className='tw-text-body2 tw-ml-auto tw-text-grayscale-400'>
             {value.length}/{maxLength}
           </span>
         </div>
@@ -75,12 +75,12 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
           onChange={handleInputChange}
           rows={TEXTAREA_LINES}
           className={cn(
-            'text-body2 h-[100px] w-full resize-none overflow-scroll rounded border border-transparent bg-grayscale-100 px-2.5 py-2 outline-none scrollbar-hide placeholder:text-grayscale-300 focus:border-grayscale-300 active:border-grayscale-300',
+            'tw-text-body2 tw-h-[100px] tw-w-full tw-resize-none tw-overflow-scroll tw-rounded tw-border tw-border-transparent tw-bg-grayscale-100 tw-px-2.5 tw-py-2 tw-outline-none tw-scrollbar-hide placeholder:tw-text-grayscale-300 focus:tw-border-grayscale-300 active:tw-border-grayscale-300',
             className,
           )}
           {...restProps}
         />
-        <p className='text-caption mt-1 text-grayscale-400'>{caption}</p>
+        <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>{caption}</p>
       </div>
     );
   },

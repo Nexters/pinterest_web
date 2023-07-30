@@ -11,19 +11,19 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 // NOTE : buttonMap, variantMap tailwind-config에 뺄 것
 const buttonMap: Record<ButtonType, string> = {
-  button1: 'flex items-center rounded text-button1 px-10 py-3.5',
-  button2: 'flex items-center rounded text-button2 px-2 py-1.5',
-  button3: 'flex justify-between items-center px-5 py-2',
+  button1: 'tw-flex tw-items-center tw-rounded tw-text-button1 tw-px-10 tw-py-3.5',
+  button2: 'tw-flex tw-items-center tw-rounded tw-text-button2 tw-px-2 tw-py-1.5',
+  button3: 'tw-flex tw-justify-between tw-items-center tw-px-5 tw-py-2',
   // NOTE : 그림자 효과가 있는 것 같은데 시안 상에서 자세히 확인되지 않으므로 물어보고 반영 예정
-  button4: 'flex justify-center items-center rounded-full w-[4.5rem] h-[4.5rem]',
+  button4: 'tw-flex tw-justify-center tw-items-center tw-rounded-full tw-w-[4.5rem] tw-h-[4.5rem]',
 };
 
 const variantMap: Record<VariantType, string> = {
-  primary: 'bg-grayscale-700 text-white',
-  secondary: 'bg-grayscale-200 text-primary',
-  nudge: 'bg-nudge text-grayscale-500',
-  link: 'bg-black text-white',
-  rounded: 'bg-black text-white text-accent-eng',
+  primary: 'tw-bg-grayscale-700 tw-text-white',
+  secondary: 'tw-bg-grayscale-200 tw-text-primary',
+  nudge: 'tw-bg-nudge tw-text-grayscale-500',
+  link: 'tw-bg-black tw-text-white',
+  rounded: 'tw-bg-black tw-text-white tw-text-accent-eng',
 };
 
 const variantType: Record<VariantType, ButtonType> = {
@@ -44,7 +44,7 @@ export function Button({ children, variant = 'primary', disabled, className, ...
         className,
         button,
         { [buttonVariant]: disabled ? false : true },
-        { 'bg-grayscale-300 text-white': disabled ? true : false },
+        { 'tw-bg-grayscale-300 tw-text-white': disabled ? true : false },
       )}
       disabled={disabled}
       {...restProps}
