@@ -35,8 +35,8 @@ export function Drawer({ isOpen, onClose }: Props) {
         )}
       >
         <h1 className='tw-ml-[42px] tw-flex tw-w-fit tw-flex-col tw-items-center'>
-          <Image src='/logo/GrafiLogo.svg' alt='Grafi Logo' width={80} height={80} />
-          <span className='tw-typo-logo1'>Grafi</span>
+          <Image src='/logo/GrafiLogo.svg' alt='Grafi Logo' width={80} height={80} priority />
+          <span className='tw-text-logo1'>Grafi</span>
         </h1>
         <p className='tw-text-caption tw-mb-10 tw-ml-10 tw-mt-2.5'>
           나의 취향을 전시할 수 있는 <br />
