@@ -4,6 +4,7 @@ import { useControllableState } from '@/hooks';
 import { cn } from '@/utils/cn';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  inputKey?: string;
   label?: string;
   value?: string;
   captionPosition?: 'top' | 'bottom';
@@ -11,6 +12,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   feedback?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -29,6 +31,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 export const Input = forwardRef<HTMLInputElement, Props>(
   (
     {
+      inputKey,
       id: idFromProps,
       label,
       value: valueFromProps,
@@ -38,6 +41,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
       defaultValue = '',
       maxLength,
       onValueChange,
+      handleChange,
       className,
       ...restProps
     },
@@ -55,6 +59,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         return;
       }
       setValue(e.target.value);
+      handleChange(e);
     };
 
     return (
@@ -75,6 +80,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           </div>
         )}
         <input
+          name={inputKey}
           ref={ref}
           id={idFromProps ?? id}
           value={value}
@@ -89,7 +95,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         {caption && captionPosition === 'bottom' && (
           <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>{caption}</p>
         )}
-        {feedback && <p className='tw-text-danger tw-text-caption tw-mt-1'>{feedback}</p>}
+        {feedback && <p className='tw-text-caption tw-mt-1 tw-text-danger'>{feedback}</p>}
       </div>
     );
   },
