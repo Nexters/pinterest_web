@@ -12,19 +12,19 @@ export function CameraRoll({ title, photos = [], className, ...restProps }: Prop
   const srcs = Array.from({ length: 10 }, (_, i) => photos[i] ?? '');
 
   return (
-    <div className={cn('ml-5 bg-grayscale-700', className)} {...restProps}>
-      <div className='flex items-center justify-between py-2 pl-3.5 pr-5'>
-        <h2 className='text-body1 text-grayscale-200'>{title}</h2>
-        <span className='text-caption-eng text-grayscale-100'>{`${photos.length} Cuts`}</span>
+    <div className={cn('tw-ml-5 tw-bg-grayscale-700', className)} {...restProps}>
+      <div className='tw-flex tw-items-center tw-justify-between tw-py-2 tw-pl-3.5 tw-pr-5'>
+        <h2 className='tw-text-body1 tw-text-grayscale-200'>{title}</h2>
+        <span className='tw-text-caption-eng tw-text-grayscale-100'>{`${photos.length} Cuts`}</span>
       </div>
-      <div className='flex gap-2.5 overflow-x-scroll scrollbar-hide'>
+      <div className='tw-flex tw-gap-2.5 tw-overflow-x-scroll tw-scrollbar-hide'>
         {srcs.map((photo, idx) => (
-          <div key={idx} className='aspect-[3/4] h-[250px] bg-grayscale-400' />
+          <div key={idx} className='tw-aspect-[3/4] tw-h-[250px] tw-bg-grayscale-400' />
         ))}
       </div>
-      <div className='flex items-center gap-4 px-3.5 py-2'>
+      <div className='tw-flex tw-items-center tw-gap-4 tw-px-3.5 tw-py-2'>
         {[...Array(FILM_HOLE_COUNT)].map((_, idx) => (
-          <div key={idx} className='h-3 w-6 shrink-0 gap-4 rounded bg-grayscale-400' />
+          <div key={idx} className='tw-h-3 tw-w-6 tw-shrink-0 tw-gap-4 tw-rounded tw-bg-grayscale-400' />
         ))}
       </div>
     </div>

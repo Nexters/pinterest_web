@@ -20,10 +20,10 @@ body {
 
 @layer base {
   html {
-    @apply bg-slate-50;
+    @apply tw-bg-slate-50;
   }
 
   body {
-    @apply bg-white;
+    @apply tw-bg-white;
   }
 }

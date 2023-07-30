@@ -29,24 +29,29 @@ export function Avatar({
   ...restProps
 }: Props) {
   return (
-    <div className={cn('flex items-center gap-5 text-primary', className)}>
-      <div className='relative h-20 w-20 cursor-pointer overflow-hidden rounded-full' onClick={onClick}>
+    <div className={cn('tw-flex tw-items-center tw-gap-5 tw-text-primary', className)}>
+      <div
+        className='tw-relative tw-h-20 tw-w-20 tw-cursor-pointer tw-overflow-hidden tw-rounded-full'
+        onClick={onClick}
+      >
         <Image
           src={src}
           alt={nickname}
           width={SIZE}
           height={SIZE}
-          className='object-cover object-center'
+          className='tw-object-cover tw-object-center'
           {...restProps}
         />
       </div>
       {displayMeta && (
-        <div className='flex flex-col gap-3'>
-          <div className='flex items-center gap-2.5'>
-            <strong className='text-accent-eng'>{nickname}</strong>
-            <span className='text-caption-eng text-grayscale-500'>{`Total ${viewCount}`}</span>
+        <div className='tw-flex tw-flex-col tw-gap-3'>
+          <div className='tw-flex tw-items-center tw-gap-2.5'>
+            <strong className='tw-text-accent-eng'>{nickname}</strong>
+            <span className='tw-text-caption-eng tw-text-grayscale-500'>{`Total ${viewCount}`}</span>
           </div>
-          <p className={clsx('text-body2-accent', !description && 'text-grayscale-300')}>{description ?? HINT_TEXT}</p>
+          <p className={clsx('tw-text-body2-accent', !description && 'tw-text-grayscale-300')}>
+            {description ?? HINT_TEXT}
+          </p>
         </div>
       )}
     </div>
