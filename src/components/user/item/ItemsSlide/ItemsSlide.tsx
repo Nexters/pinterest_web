@@ -38,7 +38,7 @@ export function ItemsSlide({ items, activeIndex, setActiveIndex }: ItemSlideProp
       <Carousel activeIndex={activeIndex} onSelect={handleSelect} controls={true} indicators={false}>
         {items.map((item) => (
           <Carousel.Item key={item.title}>
-            <ImageFrame alt={item.title} src={item.image} className='aspect-[3/4]' />
+            <ImageFrame alt={item.title} src={item.image} />
           </Carousel.Item>
         ))}
         {/* <button onClick={goToPrev} className='absolute left-4 top-1/2'>
