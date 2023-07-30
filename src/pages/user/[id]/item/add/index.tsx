@@ -1,12 +1,10 @@
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { convertImageToBase64 } from '@/utils';
-import { Icon } from '@/components/shared';
-import { Input } from '@/components/shared';
-import { ImageFrame } from '@/components/shared';
-import { TextButton } from '@/components/shared/TextButton';
+import { Icon, ImageFrame, Input, TextButton, Textarea } from '@/components/shared';
 
 const groupName = 'DDb 팀 버킷리스트';
+
 export default function AddPage() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -57,7 +55,7 @@ export default function AddPage() {
       <div className='tw-flex tw-flex-col tw-gap-3.5 tw-px-5 tw-py-6'>
         <h1 className='tw-text-main-headline'>{groupName}</h1>
         <Input placeholder='제목을 입력해주세요.' />
-        <Input placeholder='설명을 입력해주세요.' />
+        <Textarea placeholder='설명을 입력해주세요.' rows={3} />
         <Input placeholder='링크를 입력해주세요.(선택)' />
       </div>
     </div>
