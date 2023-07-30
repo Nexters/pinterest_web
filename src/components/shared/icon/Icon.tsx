@@ -25,7 +25,7 @@ export function Icon({
       fill={color}
       width={width}
       height={height}
-      className={clsx({ 'fill-grayscale-500': !color })}
+      className={clsx({ 'tw-fill-grayscale-500': !color })}
       {...restProps}
     />
   );

@@ -54,17 +54,19 @@ export const Input = forwardRef<HTMLInputElement, Props>(
     };
 
     return (
-      <div className='flex flex-col text-black'>
-        <div className='mb-3 flex w-full items-center'>
-          {label && (
+      <div className='tw-flex tw-flex-col tw-text-black'>
+        {label && (
+          <div className='tw-mb-3 tw-flex tw-w-full tw-items-center'>
             <label htmlFor={idFromProps ?? id} className='text-accent-eng'>
               {label}
             </label>
-          )}
-          <span className='text-body2 ml-auto text-grayscale-400'>
-            {value.length}/{maxLength}
-          </span>
-        </div>
+            {maxLength && (
+              <span className='tw-text-body2 tw-ml-auto tw-text-grayscale-400'>
+                {value.length}/{maxLength}
+              </span>
+            )}
+          </div>
+        )}
         <input
           ref={ref}
           id={idFromProps ?? id}
@@ -72,12 +74,12 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           maxLength={maxLength}
           onChange={handleInputChange}
           className={cn(
-            'text-body2 w-full rounded border border-transparent bg-grayscale-100 px-2.5 py-2 outline-none placeholder:text-grayscale-300 focus:border-grayscale-300 active:border-grayscale-300',
+            'tw-text-body2 tw-w-full tw-rounded tw-border tw-border-transparent tw-bg-grayscale-100 tw-px-2.5 tw-py-2 tw-outline-none placeholder:tw-text-grayscale-300 focus:tw-border-grayscale-300 active:tw-border-grayscale-300',
             className,
           )}
           {...restProps}
         />
-        <p className='text-caption mt-1 text-grayscale-400'>{caption}</p>
+        <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>{caption}</p>
       </div>
     );
   },
