@@ -6,6 +6,7 @@ import { cn } from '@/utils/cn';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   value?: string;
+  captionPosition?: 'top' | 'bottom';
   caption?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -30,6 +31,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
       id: idFromProps,
       label,
       value: valueFromProps,
+      captionPosition = 'bottom',
       caption,
       defaultValue = '',
       maxLength,
@@ -57,8 +59,11 @@ export const Input = forwardRef<HTMLInputElement, Props>(
       <div className='tw-flex tw-flex-col tw-text-black'>
         {label && (
           <div className='tw-mb-3 tw-flex tw-w-full tw-items-center'>
-            <label htmlFor={idFromProps ?? id} className='text-accent-eng'>
-              {label}
+            <label htmlFor={idFromProps ?? id} className='tw-flex tw-items-center tw-gap-2.5'>
+              <h1 className='tw-text-accent-eng'>{label}</h1>
+              {caption && captionPosition === 'top' && (
+                <p className='tw-text-caption tw-text-grayscale-400'>{caption}</p>
+              )}
             </label>
             {maxLength && (
               <span className='tw-text-body2 tw-ml-auto tw-text-grayscale-400'>
@@ -79,7 +84,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           )}
           {...restProps}
         />
-        <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>{caption}</p>
+        {caption && captionPosition === 'bottom' && (
+          <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>{caption}</p>
+        )}
       </div>
     );
   },
