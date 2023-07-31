@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import { Icon } from '@/components/shared';
+import { Icon, Input, Modal, Textarea } from '@/components/shared';
+import { useModal } from '@/hooks/useModal';
 import { cn } from '@/utils/cn';
 
 const MOCK_DATA = [
@@ -17,12 +18,18 @@ const MOCK_DATA = [
 
 export default function GuestBookPage() {
   const router = useRouter();
+  const { isOpen, open: openModal, close: closeModal } = useModal();
+
+  const handleOnSaveGuestBook = () => {
+    // TODO: API 연결
+    closeModal();
+  };
 
   return (
     <div className='tw-h-full tw-bg-black tw-pb-[140px]'>
       <div className='tw-flex tw-items-center tw-justify-between tw-px-5 tw-py-4 tw-text-white'>
         <Icon iconType='LeftChevron' color='#FFFFFF' onClick={() => router.back()} />
-        <Icon iconType='Plus' color='#FFFFFF' />
+        <Icon iconType='Plus' color='#FFFFFF' onClick={openModal} />
       </div>
       <div className='tw-grid tw-grid-cols-2 tw-border-t tw-border-white'>
         {MOCK_DATA.map(({ id, text, author, date }, idx) => {
@@ -45,6 +52,10 @@ export default function GuestBookPage() {
           );
         })}
       </div>
+      <Modal isOpen={isOpen} title='방명록 작성' onCancel={closeModal} onSave={handleOnSaveGuestBook}>
+        <Input label='From' placeholder='작성자 이름/닉네임을 입력하세요' />
+        <Textarea label='Memo' placeholder='메모를 작성해주세요' />
+      </Modal>
     </div>
   );
 }
