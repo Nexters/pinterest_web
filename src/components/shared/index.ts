@@ -3,6 +3,7 @@ export * from './Input';
 export * from './Textarea';
 export * from './Portal';
 export * from './Modal';
+export * from './ImageFrame';
 export * from './Button';
 export * from './TextButton';
 export * from './ImageFrame';
