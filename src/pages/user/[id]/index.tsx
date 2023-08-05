@@ -1,10 +1,10 @@
 import { Avatar, Button, Icon } from '@/components/shared';
 import { Drawer } from '@/components/shared/Drawer';
 import { CameraRoll } from '@/components/user/CameraRoll';
-import { useDrawer } from '@/hooks/useDrawer';
+import { useToggle } from '@/hooks/useToggle';
 
 export default function User() {
-  const { isDrawerOpen, openDrawer, closeDrawer } = useDrawer();
+  const { status: isDrawerOpen, setOn: openDrawer, setOff: closeDrawer } = useToggle();
 
   return (
     <div className='tw-relative tw-overflow-x-hidden tw-pb-10 tw-pt-3'>
