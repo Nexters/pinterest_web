@@ -41,10 +41,10 @@ export function Button({ children, variant = 'primary', disabled, className, ...
   return (
     <button
       className={cn(
-        className,
         button,
         { [buttonVariant]: disabled ? false : true },
         { 'tw-bg-grayscale-300 tw-text-white': disabled ? true : false },
+        className,
       )}
       disabled={disabled}
       {...restProps}
