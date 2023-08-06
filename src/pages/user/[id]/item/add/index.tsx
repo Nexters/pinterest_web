@@ -8,7 +8,7 @@ const groupName = 'DDb 팀 버킷리스트';
 export default function AddPage() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState<any>(null);
+  const [image, setImage] = useState<string | null>(null);
 
   const handleClick = () => {
     if (inputRef.current) {
@@ -20,7 +20,9 @@ export default function AddPage() {
     if (e.target.files !== null) {
       const file = e.target.files[0];
       const convertedImage = await convertImageToBase64(file);
-      setImage(convertedImage);
+      if (typeof convertedImage === 'string') {
+        setImage(convertedImage);
+      }
       // Upload API 연결
     }
   };
@@ -33,7 +35,7 @@ export default function AddPage() {
           취소
         </TextButton>
         <TextButton color='primary' onClick={() => router.push('/')}>
-          완료
+          저장
         </TextButton>
       </div>
 
@@ -53,10 +55,9 @@ export default function AddPage() {
 
       {/** 본문 입력 영역 */}
       <div className='tw-flex tw-flex-col tw-gap-3.5 tw-px-5 tw-py-6'>
-        <h1 className='tw-text-main-headline'>{groupName}</h1>
         <Input placeholder='제목을 입력해주세요.' />
         <Textarea placeholder='설명을 입력해주세요.' rows={3} />
-        <Input placeholder='링크를 입력해주세요.(선택)' />
+        {/* <Input placeholder='링크를 입력해주세요.(선택)' /> */}
       </div>
     </div>
   );

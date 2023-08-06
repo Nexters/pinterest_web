@@ -30,12 +30,10 @@ export default function ItemPage({ items = MOCK_DATA, isEdit = false }) {
         <div className='tw-flex tw-justify-between'>
           <div className='gap-2 tw-flex tw-items-center'>
             <h1 className='tw-text-main-headline tw-text-gray-200'>{title}</h1>
-            {isEdit ? (
+            {isEdit && (
               <Link href={`${router.pathname}/edit`}>
                 <Icon iconType='Edit' color='white' />
               </Link>
-            ) : (
-              <></>
             )}
           </div>
           <p className='tw-text-body1 tw-text-gray-300'>{`${activeIndex + 1}/10`}</p>

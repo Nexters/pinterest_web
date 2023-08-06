@@ -15,7 +15,7 @@ const MOCK_DATA = {
 export default function EditPage({ item = MOCK_DATA }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState<any>(item.image);
+  const [image, setImage] = useState<string>(item.image);
 
   const handleClick = () => {
     if (inputRef.current) {
@@ -27,7 +27,9 @@ export default function EditPage({ item = MOCK_DATA }) {
     if (e.target.files !== null) {
       const file = e.target.files[0];
       const convertedImage = await convertImageToBase64(file);
-      setImage(convertedImage);
+      if (typeof convertedImage === 'string') {
+        setImage(convertedImage);
+      }
       // Upload API 연결
     }
   };
@@ -40,7 +42,7 @@ export default function EditPage({ item = MOCK_DATA }) {
           취소
         </TextButton>
         <TextButton color='primary' onClick={() => router.push('/')}>
-          완료
+          저장
         </TextButton>
       </div>
 
