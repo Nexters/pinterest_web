@@ -3,7 +3,6 @@ import { useRef, useState } from 'react';
 import { convertImageToBase64 } from '@/utils';
 import { Button, Icon, ImageFrame, Input, TextButton, Textarea } from '@/components/shared';
 
-const groupName = 'DDb 팀 버킷리스트';
 const MOCK_DATA = {
   id: 1,
   title: '선회식 후회의',
@@ -14,6 +13,8 @@ const MOCK_DATA = {
 };
 export default function EditPage({ item = MOCK_DATA }) {
   const router = useRouter();
+  const { id } = router.query;
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string>(item.image);
 
@@ -41,7 +42,7 @@ export default function EditPage({ item = MOCK_DATA }) {
         <TextButton color='secondary' onClick={router.back}>
           취소
         </TextButton>
-        <TextButton color='primary' onClick={() => router.push('/')}>
+        <TextButton color='primary' onClick={() => router.push(`/user/${id}/item`)}>
           저장
         </TextButton>
       </div>
@@ -61,10 +62,9 @@ export default function EditPage({ item = MOCK_DATA }) {
 
       {/** 본문 입력 영역 */}
       <div className='tw-flex tw-flex-col tw-gap-3.5 tw-px-5 tw-py-6'>
-        <h1 className='tw-text-main-headline'>{groupName}</h1>
         <Input placeholder='제목을 입력해주세요.' defaultValue={item.title} />
         <Textarea placeholder='설명을 입력해주세요.' defaultValue={item.description} />
-        <Input placeholder='링크를 입력해주세요.(선택)' defaultValue={item.link} />
+        {/* <Input placeholder='링크를 입력해주세요.(선택)' defaultValue={item.link} /> */}
       </div>
     </div>
   );

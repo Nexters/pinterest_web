@@ -3,10 +3,10 @@ import { useRef, useState } from 'react';
 import { convertImageToBase64 } from '@/utils';
 import { Icon, ImageFrame, Input, TextButton, Textarea } from '@/components/shared';
 
-const groupName = 'DDb 팀 버킷리스트';
-
 export default function AddPage() {
   const router = useRouter();
+  const { id } = router.query;
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
 
@@ -34,7 +34,7 @@ export default function AddPage() {
         <TextButton color='danger' onClick={router.back}>
           취소
         </TextButton>
-        <TextButton color='primary' onClick={() => router.push('/')}>
+        <TextButton color='primary' onClick={() => router.push(`/user/${id}/item`)}>
           저장
         </TextButton>
       </div>
