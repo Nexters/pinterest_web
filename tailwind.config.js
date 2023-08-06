@@ -18,6 +18,7 @@ module.exports = {
       colors: {
         primary: '#202020',
         nudge: '#19F1CA',
+        danger: '#F40000',
         grayscale: {
           100: '#F3F3F3',
           200: '#E8E8E8',
@@ -80,6 +81,12 @@ module.exports = {
           fontWeight: '600',
           lineHeight: '1',
         },
+        '.text-button-eng': {
+          fontFamily: theme('fontFamily.montserrat'),
+          fontSize: '1.5rem',
+          fontWeight: '600',
+          lineHeight: '1',
+        },
         '.text-accent-eng': {
           fontFamily: theme('fontFamily.montserrat'),
           fontSize: '1rem',
@@ -97,6 +104,12 @@ module.exports = {
           fontSize: '0.75rem',
           fontWeight: '400',
           lineHeight: '1.3',
+        },
+        '.text-logo1': {
+          fontFamily: theme('fontFamily.montserrat'),
+          fontSize: '1.5rem',
+          fontWeight: '600',
+          lineHeight: '1.5',
         },
       });
     }),

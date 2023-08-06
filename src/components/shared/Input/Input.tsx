@@ -89,7 +89,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         {caption && captionPosition === 'bottom' && (
           <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>{caption}</p>
         )}
-        {feedback && <p className='tw-text-danger tw-text-caption tw-mt-1'>{feedback}</p>}
+        {feedback && <p className='tw-text-caption tw-mt-1 tw-text-danger'>{feedback}</p>}
       </div>
     );
   },
