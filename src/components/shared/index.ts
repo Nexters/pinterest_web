@@ -7,4 +7,5 @@ export * from './Input';
 export * from './Modal';
 export * from './Portal';
 export * from './Textarea';
+export * from './ImageFrame';
 export * from './TextButton';
