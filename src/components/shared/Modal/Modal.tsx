@@ -14,7 +14,7 @@ export function Modal({ children, isOpen, title, onCancel, onSave }: PropsWithCh
   return (
     <Portal>
       <Dimmed onClick={onCancel} />
-      <div className='tw-translate tw-fixed tw-left-1/2 tw-top-1/2 tw-flex tw-h-[432px] tw-w-[336px] tw--translate-x-1/2 tw--translate-y-1/2 tw-flex-col tw-items-center tw-rounded tw-bg-white tw-px-5 tw-pb-6 tw-shadow-lg'>
+      <div className='tw-translate tw-fixed tw-left-1/2 tw-top-1/2 tw-z-10 tw-flex tw-h-[432px] tw-w-[336px] tw--translate-x-1/2 tw--translate-y-1/2 tw-flex-col tw-items-center tw-rounded tw-bg-white tw-px-5 tw-pb-6 tw-shadow-lg'>
         <div className='tw-text-main-headline tw-h-[88px] tw-pb-[30px] tw-pt-[38px]'>
           <h2>{title}</h2>
         </div>
