@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const editPhotoCut = async (body: EditCuts) => {
   const { data } = await axios.put(
-    `${process.env.GRAFi_MAIN_HOST}/api/photo-cuts`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/photo-cuts`,
     body,
   );
   return data;
@@ -11,7 +11,7 @@ const editPhotoCut = async (body: EditCuts) => {
 
 const createPhotoCut = async (body: CreateCuts) => {
   const { data } = await axios.post(
-    `${process.env.GRAFi_MAIN_HOST}/api/photo-cuts`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/photo-cuts`,
     body,
   );
   return data;
@@ -19,7 +19,7 @@ const createPhotoCut = async (body: CreateCuts) => {
 
 const getPhotoCut = async (cutId: number) => {
   const { data } = await axios.get(
-    `${process.env.GRAFi_MAIN_HOST}/api/photo-cuts/${cutId}`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/photo-cuts/${cutId}`,
   );
   return data;
 };

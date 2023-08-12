@@ -18,9 +18,8 @@ export default function ItemPage() {
     data: { title: groupName, photo_cuts: items },
   } = useGetFilm(Number(filmId));
 
-  console.log(items);
   const [activeIndex, setActiveIndex] = useState(index);
-  const { title, text } = items[activeIndex];
+  const { title, text, photo_cut_id } = items[activeIndex];
 
   return (
     <div className='bg-black tw-h-[100vh] tw-w-full'>
@@ -30,7 +29,9 @@ export default function ItemPage() {
           <div className='gap-2 tw-flex tw-items-center'>
             <h1 className='tw-text-main-headline tw-text-gray-200'>{title}</h1>
             {login && (
-              <Link href={`${router.pathname}/edit`}>
+              <Link
+                href={`/user/${router.query.id}/${router.query.filmId}/item/edit?cutId=${photo_cut_id}`}
+              >
                 <Icon iconType='Edit' color='white' />
               </Link>
             )}

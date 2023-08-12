@@ -3,13 +3,11 @@ export interface EditCuts {
   title?: string;
   text?: string;
   image?: string;
-  link?: string;
 }
 
 export interface CreateCuts {
-  photo_cut_id: number;
+  film_id: number;
   title: string;
   text: string;
   image: string;
-  link: string;
 }

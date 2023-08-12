@@ -1,6 +1,11 @@
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
-import { convertImageToBase64 } from '@/utils';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
+import { imagesApis } from '@/query-hooks/useImages';
+import { useEditPhotoCut, useGetPhotoCut } from '@/query-hooks/usePhotoCuts';
+import photoCutsApis from '@/query-hooks/usePhotoCuts/apis';
+import photoCutsKeys from '@/query-hooks/usePhotoCuts/keys';
 import {
   Button,
   Icon,
@@ -10,20 +15,18 @@ import {
   Textarea,
 } from '@/components/shared';
 
-const MOCK_DATA = {
-  id: 1,
-  title: '선회식 후회의',
-  image: '/images/cat.png',
-  description:
-    '회의보단 회식이 좋아요....회의보단 회식이 좋아요....회의보단 회식이 좋아요....회의보단 회식이 좋아요....회의보단 회식이 좋아요....회의보단 회식이 좋아요....회의보단 회식이 좋아요....회의보단 회식이 좋아요....회의보단 회식이 좋아요....',
-  link: 'grafi.cc',
-};
-export default function EditPage({ item = MOCK_DATA }) {
+export default function EditPage() {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, filmId, cutId } = router.query;
+  const { data: item } = useGetPhotoCut(Number(cutId));
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string>(item.image);
+
+  const [title, setTitle] = useState(item.title);
+  const [text, setText] = useState(item.text);
+
+  const editPhotoCut = useEditPhotoCut();
 
   const handleClick = () => {
     if (inputRef.current) {
@@ -34,12 +37,30 @@ export default function EditPage({ item = MOCK_DATA }) {
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const file = e.target.files[0];
-      const convertedImage = await convertImageToBase64(file);
-      if (typeof convertedImage === 'string') {
-        setImage(convertedImage);
+
+      const { image_url, presigned_url } = await imagesApis.getPresignedUrl(
+        file.name,
+      );
+      await imagesApis.uploadFile(presigned_url, file);
+
+      if (typeof image_url === 'string') {
+        setImage(image_url);
       }
-      // Upload API 연결
     }
+  };
+
+  const handleSubmit = () => {
+    editPhotoCut.mutate(
+      {
+        photo_cut_id: item.photo_cut_id,
+        title,
+        text,
+        image,
+      },
+      {
+        onSuccess: () => router.push(`/user/${id}/${filmId}/item`),
+      },
+    );
   };
 
   return (
@@ -49,10 +70,7 @@ export default function EditPage({ item = MOCK_DATA }) {
         <TextButton color='secondary' onClick={router.back}>
           취소
         </TextButton>
-        <TextButton
-          color='primary'
-          onClick={() => router.push(`/user/${id}/item`)}
-        >
+        <TextButton color='primary' onClick={handleSubmit}>
           저장
         </TextButton>
       </div>
@@ -78,13 +96,32 @@ export default function EditPage({ item = MOCK_DATA }) {
 
       {/** 본문 입력 영역 */}
       <div className='tw-flex tw-flex-col tw-gap-3.5 tw-px-5 tw-py-6'>
-        <Input placeholder='제목을 입력해주세요.' defaultValue={item.title} />
+        <Input
+          placeholder='제목을 입력해주세요.'
+          defaultValue={title}
+          onValueChange={(title) => setTitle(title)}
+        />
         <Textarea
           placeholder='설명을 입력해주세요.'
-          defaultValue={item.description}
+          defaultValue={text}
+          onValueChange={(text) => setText(text)}
         />
-        {/* <Input placeholder='링크를 입력해주세요.(선택)' defaultValue={item.link} /> */}
       </div>
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const cutId: string = query.cutId as string;
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(photoCutsKeys.item(Number(cutId)), () =>
+    photoCutsApis.getPhotoCut(Number(cutId)),
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
