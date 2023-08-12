@@ -18,7 +18,7 @@ export default function SignUpPage() {
 
   const onSubmit = (req: FieldValues) => {
     mutate(
-      { user_id: req.id, name: '고양이발바닥뀩', password: req.password },
+      { user_id: req.id, password: req.password },
       {
         onSuccess: (data) => {
           router.push(`/user/${data.user_id}`);
