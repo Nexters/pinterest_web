@@ -12,4 +12,4 @@ export const convertImageToBase64 = (file : File) => {
     };
     reader.readAsDataURL(file);
   });
-};
+}

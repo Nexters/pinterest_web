@@ -82,7 +82,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
           )}
           {...restProps}
         />
-        <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>{caption}</p>
+        <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>
+          {caption}
+        </p>
       </div>
     );
   },

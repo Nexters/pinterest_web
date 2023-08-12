@@ -4,11 +4,14 @@
   "singleQuote": true,
   "jsxSingleQuote": true,
   "trailingComma": "all",
-  "printWidth": 120,
+  "printWidth": 80,
   "arrowParens": "always",
   "endOfLine": "auto",
   "bracketSameLine": false,
-  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
   "tailwindFunctions": ["clsx", "classnames", "cva", "cn", "twMerge"],
   "pluginSearchDirs": false,
   "importOrder": [

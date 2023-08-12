@@ -6,8 +6,12 @@ import { TextButton } from '@/components/shared/TextButton';
 export default function Home() {
   return (
     <main>
-      <p className='tw-text-main-headline'>이건 메인 헤드라인이에요 Pretendard</p>
-      <p className='tw-text-sub-headline'>이건 서브 헤드라인이에요 Pretendard</p>
+      <p className='tw-text-main-headline'>
+        이건 메인 헤드라인이에요 Pretendard
+      </p>
+      <p className='tw-text-sub-headline'>
+        이건 서브 헤드라인이에요 Pretendard
+      </p>
       <p className='tw-text-body1'>이건 본문1이에요 Pretendard</p>
       <p className='tw-text-body2'>이건 본문2이에요 Pretendard</p>
       <p className='tw-text-caption'>이건 캡션이에요 Pretendard</p>
@@ -23,14 +27,22 @@ export default function Home() {
       <Button variant='primary' onClick={() => console.log('primary')}>
         Primary
       </Button>
-      <Button variant='secondary' onClick={() => console.log('secondary')} disabled>
+      <Button
+        variant='secondary'
+        onClick={() => console.log('secondary')}
+        disabled
+      >
         Secondary
       </Button>
       <Button variant='nudge' onClick={() => console.log('nudge')}>
         그라피 알아보기
         <Icon iconType='RightChevron' />
       </Button>
-      <Button variant='link' onClick={() => console.log('link')} className='tw-w-[20rem]'>
+      <Button
+        variant='link'
+        onClick={() => console.log('link')}
+        className='tw-w-[20rem]'
+      >
         Link
         <Icon iconType='RightArrow' />
       </Button>

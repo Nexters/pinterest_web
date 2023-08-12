@@ -61,10 +61,15 @@ export const Input = forwardRef<HTMLInputElement, Props>(
       <div className='tw-flex tw-flex-col tw-text-black'>
         {label && (
           <div className='tw-mb-3 tw-flex tw-w-full tw-items-center'>
-            <label htmlFor={idFromProps ?? id} className='tw-flex tw-items-center tw-gap-2.5'>
+            <label
+              htmlFor={idFromProps ?? id}
+              className='tw-flex tw-items-center tw-gap-2.5'
+            >
               <h1 className='tw-text-accent-eng'>{label}</h1>
               {caption && captionPosition === 'top' && (
-                <p className='tw-text-caption tw-text-grayscale-400'>{caption}</p>
+                <p className='tw-text-caption tw-text-grayscale-400'>
+                  {caption}
+                </p>
               )}
             </label>
             {maxLength && (
@@ -87,9 +92,13 @@ export const Input = forwardRef<HTMLInputElement, Props>(
           {...restProps}
         />
         {caption && captionPosition === 'bottom' && (
-          <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>{caption}</p>
+          <p className='tw-text-caption tw-mt-1 tw-text-grayscale-400'>
+            {caption}
+          </p>
         )}
-        {feedback && <p className='tw-text-caption tw-mt-1 tw-text-danger'>{feedback}</p>}
+        {feedback && (
+          <p className='tw-text-caption tw-mt-1 tw-text-danger'>{feedback}</p>
+        )}
       </div>
     );
   },

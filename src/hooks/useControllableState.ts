@@ -6,7 +6,11 @@ interface Props<T> {
   onChange?: (value: T) => void;
 }
 
-export function useControllableState<T>({ defaultState, state: valueFromProps, onChange }: Props<T>) {
+export function useControllableState<T>({
+  defaultState,
+  state: valueFromProps,
+  onChange,
+}: Props<T>) {
   const [uncontrolledValue, setUncontrolledValue] = useState<T>(defaultState);
 
   const isControlled = valueFromProps !== undefined;

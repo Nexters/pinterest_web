@@ -16,7 +16,8 @@ interface AvatarProps {
   onClick?: MouseEventHandler<HTMLImageElement>;
 }
 
-type Props = AvatarProps & Omit<ComponentProps<typeof Image>, keyof AvatarProps | 'alt'>;
+type Props = AvatarProps &
+  Omit<ComponentProps<typeof Image>, keyof AvatarProps | 'alt'>;
 
 export function Avatar({
   src = PLACEHOLDER_SRC,
@@ -29,7 +30,12 @@ export function Avatar({
   ...restProps
 }: Props) {
   return (
-    <div className={cn('tw-flex tw-items-center tw-gap-5 tw-text-primary', className)}>
+    <div
+      className={cn(
+        'tw-flex tw-items-center tw-gap-5 tw-text-primary',
+        className,
+      )}
+    >
       <div
         className='tw-relative tw-h-20 tw-w-20 tw-cursor-pointer tw-overflow-hidden tw-rounded-full'
         onClick={onClick}
@@ -49,7 +55,12 @@ export function Avatar({
             <strong className='tw-text-accent-eng'>{nickname}</strong>
             <span className='tw-text-caption-eng tw-text-grayscale-500'>{`Total ${viewCount}`}</span>
           </div>
-          <p className={clsx('tw-text-body2-accent', !description && 'tw-text-grayscale-300')}>
+          <p
+            className={clsx(
+              'tw-text-body2-accent',
+              !description && 'tw-text-grayscale-300',
+            )}
+          >
             {description ?? HINT_TEXT}
           </p>
         </div>

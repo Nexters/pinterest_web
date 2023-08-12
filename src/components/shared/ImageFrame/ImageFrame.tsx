@@ -19,7 +19,10 @@ export function ImageFrame({
         fill={fill}
         sizes={sizes}
         placeholder={placeholder}
-        className={cn('tw-h-auto tw-w-full tw-object-cover tw-object-center', className)}
+        className={cn(
+          'tw-h-auto tw-w-full tw-object-cover tw-object-center',
+          className,
+        )}
         {...restProps}
       />
     </div>
