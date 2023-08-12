@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Fragment, type MouseEventHandler, useEffect, useState } from 'react';
 import { Button, Dimmed, Icon } from '@/components/shared';
 import { cn } from '@/utils/cn';
@@ -13,6 +14,7 @@ interface Props {
 
 export function Drawer({ isOpen, onClose }: Props) {
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (isOpen) {
@@ -42,12 +44,12 @@ export function Drawer({ isOpen, onClose }: Props) {
           나의 취향을 전시할 수 있는 <br />
           바이오그래피, 그라피입니다
         </p>
-        <Button variant='link' className='tw-ml-auto tw-h-12 tw-w-[218px]'>
+        <Button variant='link' className='tw-ml-auto tw-h-12 tw-w-[218px]' onClick={() => router.push('/signup')}>
           회원가입하기 <Icon iconType='RightArrow' />
         </Button>
         <ul className='tw-text-body1 tw-ml-auto tw-mt-9 tw-w-[218px] [&>li]:tw-border-b [&>li]:tw-border-black [&>li]:tw-py-2.5 [&>li]:tw-pl-[22px]'>
           <li>
-            <Link href='/'>로그인하기</Link>
+            <Link href='/signin'>로그인하기</Link>
           </li>
           <li>
             <Link href='/'>의견 보내기</Link>
