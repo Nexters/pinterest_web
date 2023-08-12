@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 
-type Action = {
+export type Action = {
   type:
     | 'OPEN_DRAWER'
     | 'CLOSE_DRAWER'
@@ -14,7 +14,7 @@ type Action = {
     | 'CLOSE_ADD_MENU';
 };
 
-type State = {
+export type State = {
   isDrawerOpen: boolean;
   isFilmTitleModalOpen: boolean;
   isFilmAddModalOpen: boolean;
