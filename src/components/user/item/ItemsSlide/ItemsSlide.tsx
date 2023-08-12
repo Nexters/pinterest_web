@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Carousel } from 'react-bootstrap';
-import { Icon, ImageFrame } from '@/components/shared';
+import { ImageFrame } from '@/components/shared';
 
 interface ItemType {
-  id: number;
+  photo_cut_id: number;
   title: string;
   image: string;
-  description: string;
+  text: string;
 }
 
 interface ItemSlideProps {
@@ -24,19 +24,6 @@ export function ItemsSlide({
     setActiveIndex(selectedIndex);
   };
 
-  // useEffect(() => {
-  //   require('bootstrap/dist/js/bootstrap.js');
-  // }, []);
-
-  // const goToNext = () => {
-  //   const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-  //   setActiveIndex(nextIndex);
-  // };
-  // const goToPrev = () => {
-  //   const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-  //   setActiveIndex(nextIndex);
-  // };
-
   return (
     <>
       <Carousel
@@ -44,18 +31,17 @@ export function ItemsSlide({
         onSelect={handleSelect}
         controls={true}
         indicators={false}
+        interval={null}
       >
-        {items.map((item) => (
-          <Carousel.Item key={item.title}>
-            <ImageFrame alt={item.title} src={item.image} />
+        {items.map((item, idx) => (
+          <Carousel.Item key={item.photo_cut_id}>
+            <ImageFrame
+              alt={item.title}
+              src={item.image}
+              priority={idx === activeIndex}
+            />
           </Carousel.Item>
         ))}
-        {/* <button onClick={goToPrev} className='absolute left-4 top-1/2'>
-        <Icon iconType='LeftChevronBG' width='2rem' height='2rem' />
-      </button>
-      <button onClick={goToNext} className='absolute right-4 top-1/2'>
-        <Icon iconType='RightChevronBG' width='2rem' height='2rem' />
-      </button> */}
       </Carousel>
     </>
   );

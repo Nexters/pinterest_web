@@ -31,7 +31,7 @@ const createFilms = async (title: string, userId: string) => {
 
 const getFilm = async (filmId: number) => {
   const { data } = await axios.get(
-    `${process.env.GRAFi_MAIN_HOST}/api/films/${filmId}`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/films/${filmId}`,
   );
   return data;
 };
