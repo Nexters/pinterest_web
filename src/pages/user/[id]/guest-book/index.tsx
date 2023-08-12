@@ -1,61 +1,221 @@
 import { useRouter } from 'next/router';
+import { GetServerSideProps, GetStaticProps } from 'next/types';
+import { useState } from 'react';
+import { QueryClient, dehydrate, useQueryClient } from '@tanstack/react-query';
+import {
+  useCreateUserVisitLog,
+  useDeleteUserVisitLog,
+  useGetUserVisitLogs,
+  usersApis,
+  usersKeys,
+} from '@/query-hooks/useUsers';
 import { Icon, Input, Modal, Textarea } from '@/components/shared';
+import { useLogin } from '@/hooks/useLogin';
 import { useModal } from '@/hooks/useModal';
 import { cn } from '@/utils/cn';
 
 const MOCK_DATA = [
-  { id: 1, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
-  { id: 2, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
-  { id: 3, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
-  { id: 4, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
-  { id: 5, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
-  { id: 6, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
-  { id: 7, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
-  { id: 8, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
-  { id: 9, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
-  { id: 10, text: '물커밋은 안하기로 약속해줘~~~', author: '내가 누구게', date: '2023.07.21' },
+  {
+    id: 1,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
+  {
+    id: 2,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
+  {
+    id: 3,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
+  {
+    id: 4,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
+  {
+    id: 5,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
+  {
+    id: 6,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
+  {
+    id: 7,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
+  {
+    id: 8,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
+  {
+    id: 9,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
+  {
+    id: 10,
+    text: '물커밋은 안하기로 약속해줘~~~',
+    author: '내가 누구게',
+    date: '2023.07.21',
+  },
 ];
 
-export default function GuestBookPage() {
+interface GuestBookProps {
+  userId: string;
+}
+
+export default function GuestBookPage({ userId }: GuestBookProps) {
   const router = useRouter();
   const { isOpen, open: openModal, close: closeModal } = useModal();
+  const [writerName, setWriterName] = useState('');
+  const [content, setContent] = useState('');
+  const { login } = useLogin();
+
+  const { data, isLoading } = useGetUserVisitLogs(userId);
+  const createMutation = useCreateUserVisitLog();
+  const deleteMutation = useDeleteUserVisitLog();
+  const queryClient = useQueryClient();
 
   const handleOnSaveGuestBook = () => {
     // TODO: API 연결
-    closeModal();
+    createMutation.mutate(
+      { name: writerName, text: content, userId },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(usersKeys.visitLogs(userId));
+          closeModal();
+        },
+        onError: () => {
+          alert('error');
+        },
+      },
+    );
   };
 
+  const handleDeleteGuestBook = (logId: number) => {
+    deleteMutation.mutate(
+      { userId, logId },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(usersKeys.visitLogs(userId));
+        },
+      },
+    );
+  };
+
+  if (isLoading || !data) {
+    return <div>loading</div>;
+  }
+
   return (
-    <div className='tw-h-full tw-bg-black tw-pb-[140px]'>
+    <div className='tw-min-h-[100vh] tw-bg-black tw-pb-[140px]'>
       <div className='tw-flex tw-items-center tw-justify-between tw-px-5 tw-py-4 tw-text-white'>
-        <Icon iconType='LeftChevron' color='#FFFFFF' onClick={() => router.back()} />
+        <Icon
+          iconType='LeftChevron'
+          color='#FFFFFF'
+          onClick={() => router.back()}
+        />
         <Icon iconType='Plus' color='#FFFFFF' onClick={openModal} />
       </div>
       <div className='tw-grid tw-grid-cols-2 tw-border-t tw-border-white'>
-        {MOCK_DATA.map(({ id, text, author, date }, idx) => {
+        {data.map(({ log_id, name, created_at, text }, idx) => {
           return (
             <div
-              key={id}
-              className={cn('tw-h-[188px] tw-border-b tw-border-white tw-pb-4 tw-pl-5 tw-pr-5 tw-pt-5', {
-                'tw-border-r': idx % 2 === 0,
-              })}
+              key={log_id}
+              className={cn(
+                'tw-h-[188px] tw-border-b tw-border-white tw-pb-4 tw-pl-5 tw-pr-5 tw-pt-5',
+                {
+                  'tw-border-r': idx % 2 === 0,
+                },
+              )}
             >
               <p className='tw-text-body1 tw-h-[108px] tw-text-white'>{text}</p>
               <div className='tw-flex tw-items-center tw-justify-between'>
                 <div className='tw-flex tw-flex-col tw-gap-1 tw-text-white'>
-                  <span className='tw-text-caption'>{author}</span>
-                  <span className='tw-text-caption tw-text-grayscale-400'>{date}</span>
+                  <span className='tw-text-caption'>{name}</span>
+                  <span className='tw-text-caption tw-text-grayscale-400'>
+                    {created_at}
+                  </span>
                 </div>
-                <Icon iconType='Close' className='tw-fill-grayscale-300' />
+                {login && (
+                  <Icon
+                    iconType='Close'
+                    className='tw-cursor-pointer tw-fill-grayscale-300'
+                    onClick={() => handleDeleteGuestBook(log_id)}
+                  />
+                )}
               </div>
             </div>
           );
         })}
       </div>
-      <Modal isOpen={isOpen} title='방명록 작성' onCancel={closeModal} onSave={handleOnSaveGuestBook}>
-        <Input label='From' placeholder='작성자 이름/닉네임을 입력하세요' />
-        <Textarea label='Memo' placeholder='메모를 작성해주세요' />
+      <Modal
+        isOpen={isOpen}
+        title='방명록 작성'
+        onCancel={closeModal}
+        onSave={handleOnSaveGuestBook}
+      >
+        <Input
+          label='From'
+          placeholder='작성자 이름/닉네임을 입력하세요'
+          value={writerName}
+          onChange={(e) => setWriterName(e.target.value)}
+        />
+        <Textarea
+          label='Memo'
+          placeholder='메모를 작성해주세요'
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
       </Modal>
     </div>
   );
 }
+
+/**
+ * 
+ export const getServerSideProps: GetServerSideProps<{
+  userId: string;
+}> = async ({ query }) => {
+  const queryClient = new QueryClient();
+  const userId = query.id as string;
+
+  await queryClient.prefetchQuery(filmsKeys.list(userId), () =>
+    filmsApis.getFilms(userId),
+  );
+
+  return {
+    props: {
+      userId,
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
+ */
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const queryClient = new QueryClient();
+  const userId = query.id as string;
+
+  await queryClient.prefetchQuery(usersKeys.visitLogs(userId), () =>
+    usersApis.getUserVisitLogs(userId),
+  );
+  return { props: { userId, dehydratedState: dehydrate(queryClient) } };
+};

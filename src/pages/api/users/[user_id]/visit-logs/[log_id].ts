@@ -3,11 +3,13 @@ import { HttpMethod } from '@/constants/httpMethods';
 import { AxiosError } from 'axios';
 import { instance } from '@/utils/axiosInstance';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const user_id = req.query.user_id;
   const log_id = req.query.log_id;
   const url = `/users/${user_id}/visit-logs/${log_id}`;
-  console.log(url);
   try {
     if (req.method === HttpMethod.DELETE) {
       const result = await instance.delete(url);

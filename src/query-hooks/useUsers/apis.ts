@@ -43,16 +43,16 @@ const getUserVisitLogs = async (userId: string) => {
   return data;
 };
 
-const createUserVisitLog = async (userId: string, body: CreateVisitLog) => {
+const createUserVisitLog = async (body: CreateVisitLog) => {
   const { data } = await axios.post(
-    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users/${userId}/visit-logs`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users/${body.userId}/visit-logs`,
     body,
   );
   return data;
 };
 
-const deleteUserVisitLog = async (userId: string, logId: string) => {
-  const { data } = await axios.post(
+const deleteUserVisitLog = async (userId: string, logId: number) => {
+  const { data } = await axios.delete(
     `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users/${userId}/visit-logs/${logId}`,
   );
   return data;
