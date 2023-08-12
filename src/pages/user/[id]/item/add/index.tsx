@@ -35,7 +35,10 @@ export default function AddPage() {
         <TextButton color='danger' onClick={router.back}>
           취소
         </TextButton>
-        <TextButton color='primary' onClick={() => router.push(`/user/${id}/item`)}>
+        <TextButton
+          color='primary'
+          onClick={() => router.push(`/user/${id}/item`)}
+        >
           저장
         </TextButton>
       </div>
@@ -48,7 +51,13 @@ export default function AddPage() {
           className='tw-flex tw-aspect-[3/4] tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-bg-black'
           onClick={handleClick}
         >
-          <input type='file' accept='image/*' className='tw-hidden' ref={inputRef} onChange={handleFileUpload} />
+          <input
+            type='file'
+            accept='image/*'
+            className='tw-hidden'
+            ref={inputRef}
+            onChange={handleFileUpload}
+          />
           <Icon iconType='Plus' width={68} height={68} color='#F3F3F3' />
           <p className='tw-text-button-eng tw-text-gray-100'>ADD</p>
         </div>

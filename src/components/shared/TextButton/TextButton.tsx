@@ -1,4 +1,8 @@
-import { ButtonHTMLAttributes, MouseEventHandler, PropsWithChildren } from 'react';
+import {
+  ButtonHTMLAttributes,
+  MouseEventHandler,
+  PropsWithChildren,
+} from 'react';
 import clsx from 'clsx';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -20,7 +24,11 @@ export function TextButton({
   ...restProps
 }: PropsWithChildren<Props>) {
   return (
-    <button className={clsx(className, colorMap[color])} onClick={onClick} {...restProps}>
+    <button
+      className={clsx(className, colorMap[color])}
+      onClick={onClick}
+      {...restProps}
+    >
       {children}
     </button>
   );

@@ -1,3 +1,6 @@
+export function isString(str: unknown): str is string {
+  return typeof str === 'string';
+}
 export const convertImageToBase64 = (file : File) => {
   const mediaType = file?.type;
   return new Promise((resolve, reject) => {
@@ -12,4 +15,4 @@ export const convertImageToBase64 = (file : File) => {
     };
     reader.readAsDataURL(file);
   });
-};
+}

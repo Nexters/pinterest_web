@@ -15,5 +15,5 @@ export function useModal() {
     setIsOpen(!isOpen);
   };
 
-  return { open, close, toggle } as const;
+  return { isOpen, open, close, toggle } as const;
 }

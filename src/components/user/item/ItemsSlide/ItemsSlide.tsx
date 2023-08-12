@@ -15,14 +15,18 @@ interface ItemSlideProps {
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function ItemsSlide({ items, activeIndex, setActiveIndex }: ItemSlideProps) {
+export function ItemsSlide({
+  items,
+  activeIndex,
+  setActiveIndex,
+}: ItemSlideProps) {
   const handleSelect = (selectedIndex: number) => {
     setActiveIndex(selectedIndex);
   };
 
-  useEffect(() => {
-    require('bootstrap/dist/js/bootstrap.js');
-  }, []);
+  // useEffect(() => {
+  //   require('bootstrap/dist/js/bootstrap.js');
+  // }, []);
 
   // const goToNext = () => {
   //   const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
@@ -35,7 +39,12 @@ export function ItemsSlide({ items, activeIndex, setActiveIndex }: ItemSlideProp
 
   return (
     <>
-      <Carousel activeIndex={activeIndex} onSelect={handleSelect} controls={true} indicators={false}>
+      <Carousel
+        activeIndex={activeIndex}
+        onSelect={handleSelect}
+        controls={true}
+        indicators={false}
+      >
         {items.map((item) => (
           <Carousel.Item key={item.title}>
             <ImageFrame alt={item.title} src={item.image} />

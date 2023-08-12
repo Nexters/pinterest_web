@@ -1,13 +1,13 @@
-<svg viewBox="0 0 23 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_935_6170)">
-<path d="M15.5742 6.61818L5.85152 16.3409L6.88861 17.378L16.6113 7.65527L15.5742 6.61818Z" fill="inherit"/>
-<path d="M15.5742 6.61818L5.85152 16.3409L6.88861 17.378L16.6113 7.65527L15.5742 6.61818Z" fill="inherit"/>
-<path d="M5.85158 7.65525L15.5743 17.378L16.6114 16.3409L6.88867 6.61816L5.85158 7.65525Z" fill="inherit"/>
-<path d="M5.85158 7.65525L15.5743 17.378L16.6114 16.3409L6.88867 6.61816L5.85158 7.65525Z" fill="inherit"/>
+<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1060_4617)">
+<path d="M17.7143 6.63084L7.10773 17.2374L8.2391 18.3688L18.8457 7.76221L17.7143 6.63084Z" fill="inherit"/>
+<path d="M17.7143 6.63084L7.10773 17.2374L8.2391 18.3688L18.8457 7.76221L17.7143 6.63084Z" fill="inherit"/>
+<path d="M7.10789 7.76272L17.7145 18.3693L18.8459 17.2379L8.23926 6.63135L7.10789 7.76272Z" fill="inherit"/>
+<path d="M7.10789 7.76272L17.7145 18.3693L18.8459 17.2379L8.23926 6.63135L7.10789 7.76272Z" fill="inherit"/>
 </g>
 <defs>
-<clipPath id="clip0_935_6170">
-<rect width="22" height="22" fill="white" transform="translate(0.231445 0.998047)"/>
+<clipPath id="clip0_1060_4617">
+<rect width="24" height="24" fill="white" transform="translate(0.976562 0.5)"/>
 </clipPath>
 </defs>
 </svg>

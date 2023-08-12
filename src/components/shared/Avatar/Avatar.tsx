@@ -16,7 +16,8 @@ interface AvatarProps {
   onEditProfile?: (info: Profile) => void;
 }
 
-type Props = AvatarProps & Omit<ComponentProps<typeof Image>, keyof AvatarProps | 'alt'>;
+type Props = AvatarProps &
+  Omit<ComponentProps<typeof Image>, keyof AvatarProps | 'alt'>;
 
 export function Avatar({
   src = PLACEHOLDER_SRC,
@@ -33,7 +34,12 @@ export function Avatar({
   };
 
   return (
-    <div className={cn('tw-flex tw-items-center tw-gap-5 tw-text-primary', className)}>
+    <div
+      className={cn(
+        'tw-flex tw-items-center tw-gap-5 tw-text-primary',
+        className,
+      )}
+    >
       <div
         className='tw-relative tw-h-20 tw-w-20 tw-cursor-pointer tw-overflow-hidden tw-rounded-full'
         onClick={handleEditProfile}
