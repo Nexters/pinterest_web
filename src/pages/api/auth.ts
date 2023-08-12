@@ -3,7 +3,10 @@ import { HttpMethod } from '@/constants/httpMethods';
 import { AxiosError } from 'axios';
 import { instance } from '@/utils/axiosInstance';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method === HttpMethod.POST) {
     // Process a POST request
     try {

@@ -1,4 +1,3 @@
-export { default as Close } from './close.svg';
 export { default as Edit } from './edit.svg';
 export { default as Info } from './info.svg';
 export { default as Menu } from './menu.svg';
