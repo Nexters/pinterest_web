@@ -24,7 +24,6 @@ export default function SignInPage() {
       { userId: data.id, password: data.password },
       {
         onSuccess: (data) => {
-          console.log('data', data);
           const userId = data.user_id;
           localStorage.setItem('userId', userId);
           router.push(`/user/${data.user_id}`);
