@@ -2,7 +2,7 @@ import { type ReactElement, useState } from 'react';
 import { useSafeContext } from '@/hooks';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { ModalContext, ModalProvider } from '@/providers';
-import { Avatar, Button, Icon } from '@/components/shared';
+import { Avatar, Button, Icon, Tooltip } from '@/components/shared';
 import { Drawer } from '@/components/shared/Drawer';
 import { AddMenu } from '@/components/user';
 import { CameraRoll, FilmAddModal, FilmSelectModal, FilmTitleModal, ProfileModal } from '@/components/user';
@@ -65,13 +65,15 @@ const User: NextPageWithLayout = () => {
       >
         ADD
       </Button>
-      <Icon
-        iconType='Menu'
-        onClick={() => dispatch({ type: 'OPEN_DRAWER' })}
-        className='tw-absolute tw-right-3.5 tw-top-2.5 tw-cursor-pointer'
-        width={32}
-        height={32}
-      />
+      <Tooltip text='내 그라피를 만들어보세요!' className='tw-absolute tw-right-3.5 tw-top-2.5'>
+        <Icon
+          iconType='Menu'
+          onClick={() => dispatch({ type: 'OPEN_DRAWER' })}
+          className='tw-cursor-pointer'
+          width={32}
+          height={32}
+        />
+      </Tooltip>
       <ProfileModal
         isOpen={isProfileModalOpen}
         profileImage={userInfo.profileImage}
