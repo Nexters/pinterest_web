@@ -1,5 +1,6 @@
 import { CreateUser, CreateVisitLog, EditUser } from './type';
 import axios from 'axios';
+import { UserResponse } from '@/types/response';
 
 const signInUser = async (userId: string, password: string) => {
   const { data } = await axios.post(
@@ -9,6 +10,7 @@ const signInUser = async (userId: string, password: string) => {
       password,
     },
   );
+
   return data;
 };
 
@@ -29,7 +31,7 @@ const createUser = async (body: CreateUser) => {
   return data;
 };
 
-const getUser = async (userId: string) => {
+const getUser = async (userId: string): Promise<UserResponse> => {
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users/${userId}`,
   );

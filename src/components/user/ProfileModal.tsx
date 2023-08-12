@@ -1,8 +1,15 @@
-import { type ChangeEventHandler, type ComponentProps, type MouseEventHandler, useRef, useState } from 'react';
+import {
+  type ChangeEventHandler,
+  type ComponentProps,
+  type MouseEventHandler,
+  useRef,
+  useState,
+} from 'react';
 import { convertImageToBase64 } from '@/utils';
 import { Avatar, Icon, Input, Modal } from '@/components/shared';
 
-interface Props extends Omit<ComponentProps<typeof Modal>, 'title' | 'children'> {
+interface Props
+  extends Omit<ComponentProps<typeof Modal>, 'title' | 'children'> {
   profileImage: string;
   nickname: string;
   description: string;
@@ -19,6 +26,8 @@ export function ProfileModal({
   const [image, setImage] = useState(profileImage);
   const [nickname, setNickname] = useState(nicknameFromProps);
   const [description, setDescription] = useState(descriptionFromProps);
+
+  console.log(nicknameFromProps, descriptionFromProps);
 
   const handleSave: MouseEventHandler<HTMLButtonElement> = (e) => {
     // TODO: API 연결
@@ -51,7 +60,12 @@ export function ProfileModal({
   };
 
   return (
-    <Modal title='프로필 수정' onCancel={onCancel} onSave={handleSave} {...restProps}>
+    <Modal
+      title='프로필 수정'
+      onCancel={onCancel}
+      onSave={handleSave}
+      {...restProps}
+    >
       <div className='tw-flex tw-w-full tw-flex-col tw-items-center'>
         <div className='tw-relative' onClick={handleEditPhoto}>
           <Avatar src={image} nickname={nickname} description={description} />
@@ -60,11 +74,25 @@ export function ProfileModal({
           </div>
         </div>
         <form className='tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-5'>
-          <input ref={fileInputRef} type='file' accept='image/*' id='file' hidden onChange={onChangeFile} />
-          <Input label='이름' placeholder='이름을 입력해주세요' maxLength={15} onValueChange={handleNicknameChange} />
+          <input
+            ref={fileInputRef}
+            type='file'
+            accept='image/*'
+            id='file'
+            hidden
+            onChange={onChangeFile}
+          />
+          <Input
+            label='이름'
+            placeholder='이름을 입력해주세요'
+            value={nickname}
+            maxLength={15}
+            onValueChange={handleNicknameChange}
+          />
           <Input
             label='한줄 소개'
             placeholder='한줄 소개를 작성해주세요'
+            value={description}
             maxLength={22}
             className='tw-mb-12'
             onValueChange={handleDescriptionChange}

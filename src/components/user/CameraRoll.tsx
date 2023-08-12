@@ -1,18 +1,24 @@
 import { type HTMLAttributes } from 'react';
-import { Icon } from '@/components/shared';
+import { PhotoCut } from '@/types';
+import { Icon, ImageFrame } from '@/components/shared';
 import { cn } from '@/utils/cn';
 
 const FILM_HOLE_COUNT = 11;
+const FILM_MAX_COUNT = 10;
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
-  photos?: string[];
+  photos?: PhotoCut[];
   onEditTitle: (title: string) => void;
 }
 
-export function CameraRoll({ title, photos = [], onEditTitle, className, ...restProps }: Props) {
-  const srcs = Array.from({ length: 10 }, (_, i) => photos[i] ?? '');
-
+export function CameraRoll({
+  title,
+  photos = [],
+  onEditTitle,
+  className,
+  ...restProps
+}: Props) {
   return (
     <div
       className={cn('tw-ml-5 tw-bg-grayscale-700', className)}
@@ -30,7 +36,15 @@ export function CameraRoll({ title, photos = [], onEditTitle, className, ...rest
         <span className='tw-text-caption-eng tw-text-grayscale-100'>{`${photos.length} Cuts`}</span>
       </div>
       <div className='tw-flex tw-gap-2.5 tw-overflow-x-scroll tw-scrollbar-hide'>
-        {srcs.map((photo, idx) => (
+        {photos.map(({ photo_cut_id, title, image }) => (
+          <div
+            key={photo_cut_id}
+            className='tw-aspect-[3/4] tw-h-[250px] tw-bg-grayscale-400'
+          >
+            <ImageFrame src={image} alt={title} />
+          </div>
+        ))}
+        {Array.from({ length: FILM_MAX_COUNT - photos.length }, (_, idx) => (
           <div
             key={idx}
             className='tw-aspect-[3/4] tw-h-[250px] tw-bg-grayscale-400'

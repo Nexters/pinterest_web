@@ -30,7 +30,8 @@ export function Avatar({
   ...restProps
 }: Props) {
   const handleEditProfile: MouseEventHandler<HTMLElement> = () => {
-    if (onEditProfile) onEditProfile({ profileImage: src, nickname, description });
+    if (onEditProfile)
+      onEditProfile({ profileImage: src, nickname, description });
   };
 
   return (
@@ -44,16 +45,28 @@ export function Avatar({
         className='tw-relative tw-h-20 tw-w-20 tw-cursor-pointer tw-overflow-hidden tw-rounded-full'
         onClick={handleEditProfile}
       >
-        <Image src={src} alt={nickname} fill className='tw-object-contain tw-object-center' {...restProps} />
+        <Image
+          src={src}
+          alt={nickname}
+          fill
+          className='tw-object-contain tw-object-center'
+          {...restProps}
+        />
       </div>
       {displayMeta && (
         <div className='tw-flex tw-flex-col tw-gap-3'>
-          <div className='tw-flex tw-items-center tw-gap-2.5' onClick={handleEditProfile}>
+          <div
+            className='tw-flex tw-items-center tw-gap-2.5'
+            onClick={handleEditProfile}
+          >
             <strong className='tw-text-accent-eng'>{nickname}</strong>
             <span className='tw-text-caption-eng tw-text-grayscale-500'>{`Total ${viewCount}`}</span>
           </div>
           <p
-            className={clsx('tw-text-body2-accent', !description && 'tw-text-grayscale-300')}
+            className={clsx(
+              'tw-text-body2-accent',
+              !description && 'tw-text-grayscale-300',
+            )}
             onClick={handleEditProfile}
           >
             {description.length === 0 && HINT_TEXT}

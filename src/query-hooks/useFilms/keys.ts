@@ -1,8 +1,8 @@
 const filmsKeys = {
-  all: () => ['films'],
+  all: () => ['films'] as const,
 
-  list: (userId: string) => [...filmsKeys.all(), 'list', userId],
-  item: (filmId: number) => [...filmsKeys.all(), 'item', filmId],
+  list: (userId: string) => [...filmsKeys.all(), 'list', userId] as const,
+  item: (filmId: number) => [...filmsKeys.all(), 'item', filmId] as const,
 };
 
 export default filmsKeys;
