@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
 import { Icon, ImageFrame } from '@/components/shared';
 
-interface ItemType {
+export interface ItemType {
   id: number;
   title: string;
   image: string;
