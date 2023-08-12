@@ -126,27 +126,6 @@ export default function GuestBookPage({ userId }: GuestBookProps) {
   );
 }
 
-/**
- * 
- export const getServerSideProps: GetServerSideProps<{
-  userId: string;
-}> = async ({ query }) => {
-  const queryClient = new QueryClient();
-  const userId = query.id as string;
-
-  await queryClient.prefetchQuery(filmsKeys.list(userId), () =>
-    filmsApis.getFilms(userId),
-  );
-
-  return {
-    props: {
-      userId,
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-};
- */
-
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const queryClient = new QueryClient();
   const userId = query.id as string;
