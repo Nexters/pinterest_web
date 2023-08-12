@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Indicator } from '@/components/landing/Indicator';
 import { Button } from '@/components/shared/Button';
@@ -26,6 +27,7 @@ const items = [
 ];
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState<number>(1);
+  const router = useRouter();
 
   return (
     <section>
@@ -35,12 +37,14 @@ export default function Home() {
         <Button
           className='tw-flex tw-h-[50px] tw-w-full tw-flex-row tw-justify-center tw-rounded-[6px]'
           variant='primary'
+          onClick={() => router.push('/signin')}
         >
           로그인하기
         </Button>
         <Button
           className='tw-flex tw-h-[50px] tw-w-full tw-flex-row tw-justify-center tw-rounded-[6px] tw-bg-yellow'
           variant='primary'
+          onClick={() => router.push('/signup')}
         >
           회원가입하기
         </Button>

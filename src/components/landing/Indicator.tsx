@@ -20,7 +20,7 @@ export const Indicator = ({ activeIndex, length }: IndicatorProps) => {
   const renderDots = (length: number, activeIndex: number) => {
     const dots = [];
     for (let i = 0; i < length; i++) {
-      dots.push(<Dot isActive={activeIndex === i} />);
+      dots.push(<Dot key={i} isActive={activeIndex === i} />);
     }
 
     return dots;
