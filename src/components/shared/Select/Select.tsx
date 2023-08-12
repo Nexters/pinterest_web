@@ -69,7 +69,7 @@ function SelectItem({ children }: SelectItemProps) {
   return (
     <li
       className={cn(
-        'tw-flex-justify-between tw-text-body2 tw-flex tw-h-12 tw-w-full tw-items-center tw-border-t tw-border-grayscale-300 tw-bg-grayscale-100 tw-p-2.5 tw-text-grayscale-400',
+        'tw-flex-justify-between tw-text-body2 tw-flex tw-h-12 tw-w-full tw-cursor-pointer tw-items-center tw-border-t tw-border-grayscale-300 tw-bg-grayscale-100 tw-p-2.5 tw-text-grayscale-400',
         selected === children && 'tw-hidden',
       )}
       onClick={handleSelect(children)}
