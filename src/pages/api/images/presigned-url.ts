@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === HttpMethod.GET) {
     try {
       const filename = req.query.filename;
-      const result = await instance.get(`${process.env.API_BASE_URL}/images/presigned-url?filename=${filename}`);
+      const result = await instance.get(`/images/presigned-url?filename=${filename}`);
 
       return res.status(200).json(result.data);
     } catch (e) {

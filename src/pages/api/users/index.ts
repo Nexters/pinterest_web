@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { instance } from '@/utils/axiosInstance';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const url = `${process.env.API_BASE_URL}/users`;
+  const url = `/users`;
 
   try {
     if (req.method === HttpMethod.PUT) {

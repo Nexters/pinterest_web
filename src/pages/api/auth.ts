@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === HttpMethod.POST) {
     // Process a POST request
     try {
-      const result = await instance.post(`${process.env.API_BASE_URL}/auth`, req.body);
+      const result = await instance.post(`/auth`, req.body);
 
       return res.status(200).json(result.data);
     } catch (e) {

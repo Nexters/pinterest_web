@@ -5,7 +5,7 @@ import { instance } from '@/utils/axiosInstance';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const photo_cut_id = req.query.photo_cut_id;
-  const url = `${process.env.API_BASE_URL}/photo-cuts/${photo_cut_id}`;
+  const url = `/photo-cuts/${photo_cut_id}`;
 
   try {
     if (req.method === HttpMethod.GET) {
