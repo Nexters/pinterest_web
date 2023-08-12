@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import { type ReactElement, useState } from 'react';
 import { useSafeContext } from '@/hooks';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { ModalContext, ModalProvider } from '@/providers';
@@ -10,6 +10,12 @@ import { CameraRoll, FilmAddModal, FilmSelectModal, FilmTitleModal } from '@/com
 const User: NextPageWithLayout = () => {
   const { status, dispatch } = useSafeContext(ModalContext);
   const { isDrawerOpen, isAddMenuOpen, isFilmAddModalOpen, isFilmSelectModalOpen, isFilmTitleModalOpen } = status;
+  const [editingTitle, setEditingTitle] = useState('');
+
+  const handleEditTitle = (title: string) => {
+    setEditingTitle(title);
+    dispatch({ type: 'OPEN_FILM_TITLE_MODAL' });
+  };
 
   return (
     <div className='tw-relative tw-overflow-x-hidden tw-pb-10 tw-pt-3'>
@@ -19,9 +25,9 @@ const User: NextPageWithLayout = () => {
         방명록 기능이 추가될 공간입니다 ㅎ
       </div>
       <div className='tw-flex tw-flex-col tw-gap-4'>
-        <CameraRoll title='고양이짤들' />
-        <CameraRoll title='최근에 간 카페' />
-        <CameraRoll title='고양이짤들' />
+        <CameraRoll title='고양이짤들' onEditTitle={handleEditTitle} />
+        <CameraRoll title='최근에 간 카페' onEditTitle={handleEditTitle} />
+        <CameraRoll title='고양이짤들' onEditTitle={handleEditTitle} />
       </div>
       <Button
         variant='rounded'
@@ -37,7 +43,11 @@ const User: NextPageWithLayout = () => {
         width={32}
         height={32}
       />
-      <FilmTitleModal isOpen={isFilmTitleModalOpen} onCancel={() => dispatch({ type: 'CLOSE_FILM_TITLE_MODAL' })} />
+      <FilmTitleModal
+        title={editingTitle}
+        isOpen={isFilmTitleModalOpen}
+        onCancel={() => dispatch({ type: 'CLOSE_FILM_TITLE_MODAL' })}
+      />
       <FilmAddModal isOpen={isFilmAddModalOpen} onCancel={() => dispatch({ type: 'CLOSE_FILM_ADD_MODAL' })} />
       <FilmSelectModal isOpen={isFilmSelectModalOpen} onCancel={() => dispatch({ type: 'CLOSE_FILM_SELECT_MODAL' })} />
       <AddMenu
