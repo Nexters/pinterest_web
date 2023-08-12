@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
+import { useCreateUser } from '@/query-hooks/useUsers';
 import { isString } from '@/utils';
 import { Button, Input } from '@/components/shared';
 
@@ -12,25 +13,35 @@ export default function SignUpPage() {
     handleSubmit,
     setError,
   } = useForm();
+  const { mutate } = useCreateUser();
 
-  // NOTE: ID 체크 API 연결 예정
-  const checkValidID = () => {
-    return false;
+  const onSubmit = (req: FieldValues) => {
+    mutate(
+      { user_id: req.id, name: '고양이발바닥뀩', password: req.password },
+      {
+        onSuccess: (data) => {
+          router.push(`/user/${data.user_id}`);
+          return;
+        },
+        onError: () => {
+          setError(
+            'id',
+            { message: '이미 사용 중인 아이디입니다' },
+            { shouldFocus: true },
+          );
+          return;
+        },
+      },
+    );
   };
 
-  const onSubmit = (data: object) => {
-    const isValidID = checkValidID();
-    if (isValidID) {
-      // NOTE : 회원가입 요청 API 후 uuid값 리턴받음
-      const uuid = '1111';
-      router.push(`/user/${uuid}`);
-      return;
-    }
-    setError('id', { message: '이미 사용 중인 아이디입니다' }, { shouldFocus: true });
-  };
-
-  const { ref: idRef, onChange: onIdChange } = register('id', { required: true });
-  const { ref: pwRef, onChange: onPwChange } = register('password', { required: true, minLength: 4 });
+  const { ref: idRef, onChange: onIdChange } = register('id', {
+    required: true,
+  });
+  const { ref: pwRef, onChange: onPwChange } = register('password', {
+    required: true,
+    minLength: 4,
+  });
 
   return (
     <div className='tw-relative tw-flex tw-h-[100vh] tw-w-full tw-flex-col tw-bg-white tw-px-5 tw-py-8'>
@@ -38,7 +49,10 @@ export default function SignUpPage() {
         <Image alt='logo' src='/logo.svg' width={32} height={32} />
         <h1 className='tw-text-logo'>Grafi</h1>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className='tw-flex tw-flex-1 tw-flex-col tw-justify-between'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='tw-flex tw-flex-1 tw-flex-col tw-justify-between'
+      >
         <div className='tw-flex tw-flex-col tw-gap-10'>
           <Input
             inputKey='id'

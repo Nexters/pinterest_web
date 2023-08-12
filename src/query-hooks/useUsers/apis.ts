@@ -17,9 +17,13 @@ const editUser = async (body: EditUser) => {
 };
 
 const createUser = async (body: CreateUser) => {
-  const { data } = await axios.post(`/api/users`, body);
-
-  return data;
+  console.log(body);
+  try {
+    const { data } = await axios.post(`/api/users`, body);
+    return data;
+  } catch (e) {
+    return e;
+  }
 };
 
 const getUser = async (userId: string) => {
