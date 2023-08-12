@@ -74,6 +74,7 @@ export default function User({
         <Avatar
           src={userData.profile_img ?? '/images/avatar-placeholder.png'}
           nickname={userData.name}
+          viewCount={userData.visitors}
           displayMeta
           className='tw-mx-5'
           onEditProfile={handleEditProfile}
@@ -86,6 +87,8 @@ export default function User({
         {filmList?.map(({ film_id, photo_cuts, title }) => (
           <CameraRoll
             key={film_id}
+            userId={userId}
+            filmId={film_id}
             photos={photo_cuts}
             title={title}
             onEditTitle={() => handleEditTitle(title, film_id)}

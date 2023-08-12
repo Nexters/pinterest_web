@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { type HTMLAttributes } from 'react';
 import { PhotoCut } from '@/types';
 import { Icon, ImageFrame } from '@/components/shared';
@@ -7,18 +8,24 @@ const FILM_HOLE_COUNT = 11;
 const FILM_MAX_COUNT = 10;
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
+  userId: string;
+  filmId: number;
   title: string;
   photos?: PhotoCut[];
   onEditTitle: () => void;
 }
 
 export function CameraRoll({
+  userId,
+  filmId,
   title,
   photos = [],
   onEditTitle,
   className,
   ...restProps
 }: Props) {
+  const router = useRouter();
+
   return (
     <div
       className={cn('tw-ml-5 tw-bg-grayscale-700', className)}
@@ -39,15 +46,17 @@ export function CameraRoll({
         {photos.map(({ photo_cut_id, title, image }) => (
           <div
             key={photo_cut_id}
-            className='tw-aspect-[3/4] tw-h-[250px] tw-bg-grayscale-400'
+            className='tw-aspect-[3/4] tw-h-[250px] tw-cursor-pointer tw-bg-grayscale-400'
+            onClick={() => router.push(`/user/${userId}/${filmId}/item/edit`)}
           >
             <ImageFrame src={image} alt={title} />
           </div>
         ))}
         {Array.from({ length: FILM_MAX_COUNT - photos.length }, (_, idx) => (
           <div
-            key={idx}
-            className='tw-aspect-[3/4] tw-h-[250px] tw-bg-grayscale-400'
+            key={`empty_${idx}`}
+            className='tw-aspect-[3/4] tw-h-[250px] tw-cursor-pointer tw-bg-grayscale-400'
+            onClick={() => router.push(`/user/${userId}/${filmId}/item/add`)}
           />
         ))}
       </div>
