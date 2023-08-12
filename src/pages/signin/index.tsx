@@ -1,24 +1,38 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
+import { useSignInUser } from '@/query-hooks/useUsers';
 import { Button, Input } from '@/components/shared';
 
 export default function SignInPage() {
   const router = useRouter();
+  const { mutate } = useSignInUser();
   const {
     formState: { isValid },
     register,
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data: object) => {
-    // NOTE: 로그인 API 연결
-    const uuid = 1111;
-    router.push(`/user/${uuid}`);
+  const onSubmit = (data: FieldValues) => {
+    mutate(
+      { userId: data.id, password: data.password },
+      {
+        onSuccess: (data) => {
+          const userId = data.user_id;
+          localStorage.setItem('userId', userId);
+          router.push(`/user/${data.user_id}`);
+        },
+      },
+    );
   };
 
-  const { ref: idRef, onChange: onIdChange } = register('id', { required: true });
-  const { ref: pwRef, onChange: onPwChange } = register('password', { required: true, minLength: 4 });
+  const { ref: idRef, onChange: onIdChange } = register('id', {
+    required: true,
+  });
+  const { ref: pwRef, onChange: onPwChange } = register('password', {
+    required: true,
+    minLength: 4,
+  });
 
   return (
     <div className='tw-relative tw-flex tw-h-[100vh] tw-w-full tw-flex-col tw-bg-white tw-px-5 tw-py-8'>
@@ -26,7 +40,10 @@ export default function SignInPage() {
         <Image alt='logo' src='/logo.svg' width={32} height={32} />
         <h1 className='tw-text-logo'>Grafi</h1>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className='tw-flex tw-flex-1 tw-flex-col tw-justify-between'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='tw-flex tw-flex-1 tw-flex-col tw-justify-between'
+      >
         <div className='tw-flex tw-flex-col tw-gap-10'>
           <Input
             inputKey='id'
