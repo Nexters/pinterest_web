@@ -10,6 +10,8 @@ export type Action = {
     | 'CLOSE_FILM_ADD_MODAL'
     | 'OPEN_FILM_SELECT_MODAL'
     | 'CLOSE_FILM_SELECT_MODAL'
+    | 'OPEN_PROFILE_MODAL'
+    | 'CLOSE_PROFILE_MODAL'
     | 'OPEN_ADD_MENU'
     | 'CLOSE_ADD_MENU';
 };
@@ -19,6 +21,7 @@ export type State = {
   isFilmTitleModalOpen: boolean;
   isFilmAddModalOpen: boolean;
   isFilmSelectModalOpen: boolean;
+  isProfileModalOpen: boolean;
   isAddMenuOpen: boolean;
 };
 
@@ -27,6 +30,7 @@ const initialState: State = {
   isFilmTitleModalOpen: false,
   isFilmAddModalOpen: false,
   isFilmSelectModalOpen: false,
+  isProfileModalOpen: false,
   isAddMenuOpen: false,
 };
 
@@ -48,6 +52,10 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, isFilmSelectModalOpen: true, isAddMenuOpen: false };
     case 'CLOSE_FILM_SELECT_MODAL':
       return { ...state, isFilmSelectModalOpen: false };
+    case 'OPEN_PROFILE_MODAL':
+      return { ...state, isProfileModalOpen: true };
+    case 'CLOSE_PROFILE_MODAL':
+      return { ...state, isProfileModalOpen: false };
     case 'OPEN_ADD_MENU':
       return { ...state, isAddMenuOpen: true };
     case 'CLOSE_ADD_MENU':

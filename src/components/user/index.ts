@@ -3,3 +3,4 @@ export * from './AddMenu';
 export * from './FilmAddModal';
 export * from './FilmSelectModal';
 export * from './FilmTitleModal';
+export * from './ProfileModal';
