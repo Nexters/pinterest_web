@@ -141,6 +141,8 @@ export default function User({
       )}
       {isFilmSelectModalOpen && (
         <FilmSelectModal
+          userId={userId}
+          filmList={filmList}
           isOpen={isFilmSelectModalOpen}
           onCancel={() => dispatch({ type: 'CLOSE_FILM_SELECT_MODAL' })}
         />

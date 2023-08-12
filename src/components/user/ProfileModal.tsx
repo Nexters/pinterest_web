@@ -27,8 +27,6 @@ export function ProfileModal({
   const [nickname, setNickname] = useState(nicknameFromProps);
   const [description, setDescription] = useState(descriptionFromProps);
 
-  console.log(nicknameFromProps, descriptionFromProps);
-
   const handleSave: MouseEventHandler<HTMLButtonElement> = (e) => {
     // TODO: API 연결
     if (onCancel) onCancel(e);
