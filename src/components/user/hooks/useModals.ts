@@ -57,7 +57,7 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-export function useModalManager() {
+export function useModals() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return { status: state, dispatch } as const;

@@ -2,10 +2,10 @@ import { Avatar, Button, Icon } from '@/components/shared';
 import { Drawer } from '@/components/shared/Drawer';
 import { AddMenu } from '@/components/user';
 import { CameraRoll, FilmAddModal, FilmSelectModal, FilmTitleModal } from '@/components/user';
-import { useModalManager } from '@/components/user/hooks';
+import { useModals } from '@/components/user/hooks';
 
 export default function User() {
-  const { status, dispatch } = useModalManager();
+  const { status, dispatch } = useModals();
   const { isDrawerOpen, isAddMenuOpen, isFilmAddModalOpen, isFilmSelectModalOpen, isFilmTitleModalOpen } = status;
 
   return (
