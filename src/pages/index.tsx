@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { Indicator } from '@/components/landing/Indicator';
-import { Icon } from '@/components/shared';
 import { Button } from '@/components/shared/Button';
-import { TextButton } from '@/components/shared/TextButton';
 import { ItemsSlide } from '@/components/user/item/ItemsSlide';
-import { cn } from '@/utils/cn';
 
 // NOTE : 온보딩 페이지
 const items = [
@@ -29,6 +26,7 @@ const items = [
 ];
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState<number>(1);
+
   return (
     <section>
       <Indicator length={items.length} activeIndex={activeIndex} />
