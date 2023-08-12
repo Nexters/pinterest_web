@@ -7,3 +7,4 @@ export { default as RightChevron } from './right-chevron.svg';
 export { default as RightChevronBG } from './right-chevron-bg.svg';
 export { default as LeftChevronBG } from './left-chevron-bg.svg';
 export { default as Camera } from './camera.svg';
+export { default as ArrowDown } from './arrow-down.svg';
