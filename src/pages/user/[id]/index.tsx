@@ -26,6 +26,11 @@ export interface Profile {
   description: string;
 }
 
+interface Film {
+  filmId: number | null;
+  title: string | null;
+}
+
 export default function User({
   userId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -42,10 +47,17 @@ export default function User({
     isFilmSelectModalOpen,
     isFilmTitleModalOpen,
   } = status;
-  const [editingTitle, setEditingTitle] = useState('');
 
-  const handleEditTitle = (title: string) => {
-    setEditingTitle(title);
+  const [editingFilm, setEditingFilm] = useState<Film>({
+    title: null,
+    filmId: null,
+  });
+
+  const handleEditTitle = (title: string, filmId: number) => {
+    setEditingFilm({
+      title,
+      filmId,
+    });
     dispatch({ type: 'OPEN_FILM_TITLE_MODAL' });
   };
 
@@ -76,7 +88,7 @@ export default function User({
             key={film_id}
             photos={photo_cuts}
             title={title}
-            onEditTitle={handleEditTitle}
+            onEditTitle={() => handleEditTitle(title, film_id)}
           />
         ))}
       </div>
@@ -99,7 +111,7 @@ export default function User({
           height={32}
         />
       </Tooltip>
-      {userData && (
+      {userData && isProfileModalOpen && (
         <ProfileModal
           isOpen={isProfileModalOpen}
           profileImage={
@@ -110,11 +122,14 @@ export default function User({
           onCancel={() => dispatch({ type: 'CLOSE_PROFILE_MODAL' })}
         />
       )}
-      <FilmTitleModal
-        title={editingTitle}
-        isOpen={isFilmTitleModalOpen}
-        onCancel={() => dispatch({ type: 'CLOSE_FILM_TITLE_MODAL' })}
-      />
+      {isFilmTitleModalOpen && editingFilm.filmId && (
+        <FilmTitleModal
+          filmId={editingFilm.filmId}
+          title={editingFilm.title ?? ''}
+          isOpen={isFilmTitleModalOpen}
+          onCancel={() => dispatch({ type: 'CLOSE_FILM_TITLE_MODAL' })}
+        />
+      )}
       <FilmAddModal
         isOpen={isFilmAddModalOpen}
         onCancel={() => dispatch({ type: 'CLOSE_FILM_ADD_MODAL' })}

@@ -9,7 +9,7 @@ const FILM_MAX_COUNT = 10;
 interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
   photos?: PhotoCut[];
-  onEditTitle: (title: string) => void;
+  onEditTitle: () => void;
 }
 
 export function CameraRoll({
@@ -30,7 +30,7 @@ export function CameraRoll({
           <Icon
             iconType='Edit'
             className='tw-cursor-pointer tw-fill-grayscale-400'
-            onClick={() => onEditTitle(title)}
+            onClick={onEditTitle}
           />
         </div>
         <span className='tw-text-caption-eng tw-text-grayscale-100'>{`${photos.length} Cuts`}</span>

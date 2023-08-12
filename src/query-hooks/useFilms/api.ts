@@ -12,7 +12,7 @@ const editFilms = async (filmId: number, title: string) => {
   const { data } = await axios.put(
     `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/films`,
     {
-      filmId,
+      film_id: filmId,
       title,
     },
   );
