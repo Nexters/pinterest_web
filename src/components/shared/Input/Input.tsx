@@ -63,7 +63,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
     };
 
     return (
-      <div className='tw-flex tw-flex-col tw-text-black'>
+      <div className='tw-flex tw-w-full tw-flex-col tw-text-black'>
         {label && (
           <div className='tw-mb-3 tw-flex tw-w-full tw-items-center'>
             <label

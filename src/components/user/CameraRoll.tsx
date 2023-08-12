@@ -1,4 +1,5 @@
 import { type HTMLAttributes } from 'react';
+import { Icon } from '@/components/shared';
 import { cn } from '@/utils/cn';
 
 const FILM_HOLE_COUNT = 11;
@@ -6,14 +7,10 @@ const FILM_HOLE_COUNT = 11;
 interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
   photos?: string[];
+  onEditTitle: (title: string) => void;
 }
 
-export function CameraRoll({
-  title,
-  photos = [],
-  className,
-  ...restProps
-}: Props) {
+export function CameraRoll({ title, photos = [], onEditTitle, className, ...restProps }: Props) {
   const srcs = Array.from({ length: 10 }, (_, i) => photos[i] ?? '');
 
   return (
@@ -22,7 +19,14 @@ export function CameraRoll({
       {...restProps}
     >
       <div className='tw-flex tw-items-center tw-justify-between tw-py-2 tw-pl-3.5 tw-pr-5'>
-        <h2 className='tw-text-body1 tw-text-grayscale-200'>{title}</h2>
+        <div className='tw-flex tw-items-center tw-gap-1'>
+          <h2 className='tw-text-body1 tw-text-grayscale-200'>{title}</h2>
+          <Icon
+            iconType='Edit'
+            className='tw-cursor-pointer tw-fill-grayscale-400'
+            onClick={() => onEditTitle(title)}
+          />
+        </div>
         <span className='tw-text-caption-eng tw-text-grayscale-100'>{`${photos.length} Cuts`}</span>
       </div>
       <div className='tw-flex tw-gap-2.5 tw-overflow-x-scroll tw-scrollbar-hide'>

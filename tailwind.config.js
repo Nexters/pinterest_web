@@ -17,7 +17,8 @@ module.exports = {
       },
       colors: {
         primary: '#202020',
-        nudge: '#19F1CA',
+        nudge: '#FACB2E',
+        blue: '#0066FF',
         danger: '#F40000',
         yellow: '#FACB2E',
         grayscale: {

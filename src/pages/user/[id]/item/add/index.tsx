@@ -1,17 +1,12 @@
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { convertImageToBase64 } from '@/utils';
-import {
-  Icon,
-  ImageFrame,
-  Input,
-  TextButton,
-  Textarea,
-} from '@/components/shared';
+import { Icon, ImageFrame, Input, TextButton, Textarea } from '@/components/shared';
+import { isString } from '@/utils/type-util';
 
 export default function AddPage() {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, title } = router.query;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
@@ -70,7 +65,7 @@ export default function AddPage() {
 
       {/** 본문 입력 영역 */}
       <div className='tw-flex tw-flex-col tw-gap-3.5 tw-px-5 tw-py-6'>
-        <Input placeholder='제목을 입력해주세요.' />
+        <Input placeholder='제목을 입력해주세요.' value={isString(title) ? title : ''} readOnly />
         <Textarea placeholder='설명을 입력해주세요.' rows={3} />
         {/* <Input placeholder='링크를 입력해주세요.(선택)' /> */}
       </div>
