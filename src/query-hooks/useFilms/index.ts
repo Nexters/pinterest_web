@@ -15,7 +15,9 @@ const useEditFilms = () => {
     mutationFn: ({ filmId, title }: { filmId: number; title: string }) =>
       filmsApis.editFilms(filmId, title),
     onSuccess: () => {
-      const userId = localStorage.get('userId');
+      const userId = localStorage.getItem('userId');
+      if (!userId) return;
+
       queryClient.invalidateQueries(filmsKeys.list(userId));
     },
   });
