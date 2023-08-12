@@ -81,6 +81,12 @@ module.exports = {
           fontWeight: '600',
           lineHeight: '1',
         },
+        '.text-logo': {
+          fontFamily: theme('fontFamily.montserrat'),
+          fontSize: '1.75rem',
+          fontWeight: '600',
+          lineHeight: '1',
+        },
         '.text-button-eng': {
           fontFamily: theme('fontFamily.montserrat'),
           fontSize: '1.5rem',

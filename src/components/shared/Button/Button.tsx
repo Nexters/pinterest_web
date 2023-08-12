@@ -5,7 +5,7 @@ type ButtonType = 'button1' | 'button2' | 'button3' | 'button4';
 type VariantType = 'primary' | 'secondary' | 'nudge' | 'link' | 'rounded';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: VariantType;
+  variant?: VariantType;
   disabled?: boolean;
 }
 
