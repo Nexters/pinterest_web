@@ -14,69 +14,6 @@ import { useLogin } from '@/hooks/useLogin';
 import { useModal } from '@/hooks/useModal';
 import { cn } from '@/utils/cn';
 
-const MOCK_DATA = [
-  {
-    id: 1,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-  {
-    id: 2,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-  {
-    id: 3,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-  {
-    id: 4,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-  {
-    id: 5,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-  {
-    id: 6,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-  {
-    id: 7,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-  {
-    id: 8,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-  {
-    id: 9,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-  {
-    id: 10,
-    text: '물커밋은 안하기로 약속해줘~~~',
-    author: '내가 누구게',
-    date: '2023.07.21',
-  },
-];
-
 interface GuestBookProps {
   userId: string;
 }
