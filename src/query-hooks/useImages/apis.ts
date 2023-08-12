@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const getPresignedUrl = async (filename: string) => {
-  const { data } = await axios.get(`/api/images?filename=${filename}`);
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/images?filename=${filename}`,
+  );
 
   return data;
 };

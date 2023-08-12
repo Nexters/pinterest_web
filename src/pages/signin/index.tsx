@@ -1,16 +1,22 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FieldValues, useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 import { useSignInUser } from '@/query-hooks/useUsers';
+import { isString } from '@/utils';
+import axios, { AxiosError } from 'axios';
 import { Button, Input } from '@/components/shared';
 
 export default function SignInPage() {
   const router = useRouter();
   const { mutate } = useSignInUser();
+  // const {mutate} = useMutation()
+
   const {
-    formState: { isValid },
+    formState: { isValid, errors },
     register,
     handleSubmit,
+    setError,
   } = useForm();
 
   const onSubmit = (data: FieldValues) => {
@@ -18,9 +24,20 @@ export default function SignInPage() {
       { userId: data.id, password: data.password },
       {
         onSuccess: (data) => {
+          console.log('data', data);
           const userId = data.user_id;
           localStorage.setItem('userId', userId);
           router.push(`/user/${data.user_id}`);
+        },
+        onError: (e: any) => {
+          const err = e as AxiosError;
+          setError(
+            'password',
+            {
+              message: err.response?.data as string,
+            },
+            { shouldFocus: true },
+          );
         },
       },
     );
@@ -60,6 +77,9 @@ export default function SignInPage() {
             label='비밀번호'
             caption='숫자만 입력 가능'
             placeholder='비밀번호 4자리를 입력해주세요'
+            feedback={
+              isString(errors.password?.message) ? errors.password?.message : ''
+            }
             maxLength={4}
             ref={pwRef}
             handleChange={onPwChange}

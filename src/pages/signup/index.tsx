@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FieldValues, useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 import { useCreateUser } from '@/query-hooks/useUsers';
 import { isString } from '@/utils';
 import { Button, Input } from '@/components/shared';
@@ -23,7 +24,7 @@ export default function SignUpPage() {
           router.push(`/user/${data.user_id}`);
           return;
         },
-        onError: () => {
+        onError: (error) => {
           setError(
             'id',
             { message: '이미 사용 중인 아이디입니다' },

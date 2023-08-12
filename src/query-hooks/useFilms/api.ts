@@ -5,32 +5,41 @@ const getFilms = async (userId: string) => {
 
   return data;
 };
-
 const editFilms = async (filmId: number, title: string) => {
-  const { data } = await axios.put(`/api/films`, {
-    filmId,
-    title,
-  });
+  const { data } = await axios.put(
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/films`,
+    {
+      filmId,
+      title,
+    },
+  );
 
   return data;
 };
 
 const createFilms = async (title: string, userId: string) => {
-  const { data } = await axios.post(`/api/films`, {
-    title,
-    userId,
-  });
+  const { data } = await axios.post(
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/films`,
+    {
+      title,
+      userId,
+    },
+  );
 
   return data;
 };
 
 const getFilm = async (filmId: number) => {
-  const { data } = await axios.get(`/api/films/${filmId}`);
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/films/${filmId}`,
+  );
   return data;
 };
 
 const deleteFilm = async (filmId: number) => {
-  const { data } = await axios.delete(`/api/films/${filmId}`);
+  const { data } = await axios.delete(
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/films/${filmId}`,
+  );
   return data;
 };
 
