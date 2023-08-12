@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app';
 import { Hydrate, QueryProvider } from '@/providers';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { montserrat, pretendard } from '@/styles/fonts';
 import '@/styles/globals.css';
 

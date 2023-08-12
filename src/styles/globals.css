@@ -17,3 +17,14 @@ body {
     margin: auto;
   }
 }
+
+@layer base {
+  html {
+    @apply tw-bg-slate-50;
+  }
+
+  body {
+    @apply tw-bg-white;
+  }
+}
+

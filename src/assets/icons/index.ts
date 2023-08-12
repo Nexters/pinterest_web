@@ -4,3 +4,6 @@ export { default as Menu } from './menu.svg';
 export { default as Plus } from './plus.svg';
 export { default as RightArrow } from './right-arrow.svg';
 export { default as RightChevron } from './right-chevron.svg';
+export { default as RightChevronBG } from './right-chevron-bg.svg';
+export { default as LeftChevronBG } from './left-chevron-bg.svg';
+export { default as Camera } from './camera.svg';

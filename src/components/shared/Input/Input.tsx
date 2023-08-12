@@ -12,7 +12,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   feedback?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -59,7 +59,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         return;
       }
       setValue(e.target.value);
-      handleChange(e);
+      handleChange?.(e);
     };
 
     return (
