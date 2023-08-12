@@ -130,14 +130,18 @@ export default function User({
           onCancel={() => dispatch({ type: 'CLOSE_FILM_TITLE_MODAL' })}
         />
       )}
-      <FilmAddModal
-        isOpen={isFilmAddModalOpen}
-        onCancel={() => dispatch({ type: 'CLOSE_FILM_ADD_MODAL' })}
-      />
-      <FilmSelectModal
-        isOpen={isFilmSelectModalOpen}
-        onCancel={() => dispatch({ type: 'CLOSE_FILM_SELECT_MODAL' })}
-      />
+      {isFilmAddModalOpen && (
+        <FilmAddModal
+          isOpen={isFilmAddModalOpen}
+          onCancel={() => dispatch({ type: 'CLOSE_FILM_ADD_MODAL' })}
+        />
+      )}
+      {isFilmSelectModalOpen && (
+        <FilmSelectModal
+          isOpen={isFilmSelectModalOpen}
+          onCancel={() => dispatch({ type: 'CLOSE_FILM_SELECT_MODAL' })}
+        />
+      )}
       <AddMenu
         isOpen={isAddMenuOpen}
         onClose={() => dispatch({ type: 'CLOSE_ADD_MENU' })}
