@@ -9,6 +9,15 @@ const nextConfig = {
       use: ["@svgr/webpack"]
     });
     return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'grafi-test-bucket.s3.ap-northeast-2.amazonaws.com',
+        port: '',
+      },
+    ],
   }
 }
 
