@@ -32,7 +32,11 @@ export default function Home() {
   return (
     <section>
       <Indicator length={items.length} activeIndex={activeIndex} />
-      <ItemsSlide items={items} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+      <ItemsSlide
+        items={items}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
+      />
       <div className='tw-fixed tw-bottom-3 tw-flex tw-w-full tw-max-w-[475px] tw-flex-col tw-items-center tw-gap-3 tw-px-5'>
         <Button
           className='tw-flex tw-h-[50px] tw-w-full tw-flex-row tw-justify-center tw-rounded-[6px]'

@@ -4,11 +4,20 @@ import { CameraRoll } from '@/components/user/CameraRoll';
 import { useToggle } from '@/hooks/useToggle';
 
 export default function User() {
-  const { status: isDrawerOpen, setOn: openDrawer, setOff: closeDrawer } = useToggle();
+  const {
+    status: isDrawerOpen,
+    setOn: openDrawer,
+    setOff: closeDrawer,
+  } = useToggle();
 
   return (
     <div className='tw-relative tw-overflow-x-hidden tw-pb-10 tw-pt-3'>
-      <Avatar src='/images/profile.png' nickname='Jichoi' displayMeta className='tw-mx-5' />
+      <Avatar
+        src='/images/profile.png'
+        nickname='Jichoi'
+        displayMeta
+        className='tw-mx-5'
+      />
       {/* {TODO: 방명록 기능 추가할 때 변경} */}
       <div className='tw-mx-5 tw-mb-5 tw-mt-3 tw-bg-grayscale-700 tw-px-3.5 tw-py-1.5 tw-text-white'>
         방명록 기능이 추가될 공간입니다 ㅎ

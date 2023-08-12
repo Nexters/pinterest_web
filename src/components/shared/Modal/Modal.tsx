@@ -8,7 +8,13 @@ interface Props {
   onSave?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export function Modal({ children, isOpen, title, onCancel, onSave }: PropsWithChildren<Props>) {
+export function Modal({
+  children,
+  isOpen,
+  title,
+  onCancel,
+  onSave,
+}: PropsWithChildren<Props>) {
   if (!isOpen) return null;
 
   return (
@@ -18,7 +24,9 @@ export function Modal({ children, isOpen, title, onCancel, onSave }: PropsWithCh
         <div className='tw-text-main-headline tw-h-[88px] tw-pb-[30px] tw-pt-[38px]'>
           <h2>{title}</h2>
         </div>
-        <div className='tw-flex tw-w-full tw-flex-1 tw-flex-col tw-gap-6'>{children}</div>
+        <div className='tw-flex tw-w-full tw-flex-1 tw-flex-col tw-gap-6'>
+          {children}
+        </div>
         <div className='tw-gap tw-flex tw-w-full tw-items-center tw-gap-3'>
           {/* TODO: button 컴포넌트 완성되면 붙이기 */}
           <button
