@@ -1,11 +1,14 @@
+import type { ReactElement } from 'react';
+import { useSafeContext } from '@/hooks';
+import type { NextPageWithLayout } from '@/pages/_app';
+import { ModalContext, ModalProvider } from '@/providers';
 import { Avatar, Button, Icon } from '@/components/shared';
 import { Drawer } from '@/components/shared/Drawer';
 import { AddMenu } from '@/components/user';
 import { CameraRoll, FilmAddModal, FilmSelectModal, FilmTitleModal } from '@/components/user';
-import { useModals } from '@/components/user/hooks';
 
-export default function User() {
-  const { status, dispatch } = useModals();
+const User: NextPageWithLayout = () => {
+  const { status, dispatch } = useSafeContext(ModalContext);
   const { isDrawerOpen, isAddMenuOpen, isFilmAddModalOpen, isFilmSelectModalOpen, isFilmTitleModalOpen } = status;
 
   return (
@@ -46,4 +49,10 @@ export default function User() {
       <Drawer isOpen={isDrawerOpen} onClose={() => dispatch({ type: 'CLOSE_DRAWER' })} />
     </div>
   );
-}
+};
+
+User.getLayout = function getLayout(page: ReactElement) {
+  return <ModalProvider>{page}</ModalProvider>;
+};
+
+export default User;
