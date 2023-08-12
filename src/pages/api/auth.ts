@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { HttpMethod } from '@/constants/httpMethods';
 import { AxiosError } from 'axios';
 import { instance } from '@/utils/axiosInstance';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
+  if (req.method === HttpMethod.POST) {
     // Process a POST request
     try {
       const result = await instance.post(`${process.env.API_BASE_URL}/auth`, req.body);
