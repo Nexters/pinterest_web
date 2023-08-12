@@ -6,7 +6,6 @@ export interface EditUser {
 
 export interface CreateUser {
   user_id: string;
-  name: string;
   password: string;
 }
 

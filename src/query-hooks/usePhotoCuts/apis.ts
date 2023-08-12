@@ -26,7 +26,7 @@ const getPhotoCut = async (cutId: number) => {
 
 const deletePhotoCut = async (cutId: number) => {
   const { data } = await axios.delete(
-    `${process.env.GRAFi_MAIN_HOST}/api/photo-cuts/${cutId}`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/photo-cuts/${cutId}`,
   );
   return data;
 };

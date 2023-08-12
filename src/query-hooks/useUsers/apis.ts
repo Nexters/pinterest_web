@@ -2,17 +2,19 @@ import { CreateUser, CreateVisitLog, EditUser } from './type';
 import axios from 'axios';
 
 const signInUser = async (userId: string, password: string) => {
-  const { data } = await axios.post(`${process.env.GRAFi_MAIN_HOST}/api/auth`, {
-    user_id: userId,
-    password,
-  });
-
+  const { data } = await axios.post(
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/auth`,
+    {
+      user_id: userId,
+      password,
+    },
+  );
   return data;
 };
 
 const editUser = async (body: EditUser) => {
   const { data } = await axios.put(
-    `${process.env.GRAFi_MAIN_HOST}/api/users`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users`,
     body,
   );
 
@@ -21,30 +23,29 @@ const editUser = async (body: EditUser) => {
 
 const createUser = async (body: CreateUser) => {
   const { data } = await axios.post(
-    `${process.env.GRAFi_MAIN_HOST}/api/users`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users`,
     body,
   );
-
   return data;
 };
 
 const getUser = async (userId: string) => {
   const { data } = await axios.get(
-    `${process.env.GRAFi_MAIN_HOST}/api/users/${userId}`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users/${userId}`,
   );
   return data;
 };
 
 const getUserVisitLogs = async (userId: string) => {
   const { data } = await axios.get(
-    `${process.env.GRAFi_MAIN_HOST}/api/users/${userId}/visit-logs`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users/${userId}/visit-logs`,
   );
   return data;
 };
 
 const createUserVisitLog = async (userId: string, body: CreateVisitLog) => {
   const { data } = await axios.post(
-    `${process.env.GRAFi_MAIN_HOST}/api/users/${userId}/visit-logs`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users/${userId}/visit-logs`,
     body,
   );
   return data;
@@ -52,7 +53,7 @@ const createUserVisitLog = async (userId: string, body: CreateVisitLog) => {
 
 const deleteUserVisitLog = async (userId: string, logId: string) => {
   const { data } = await axios.post(
-    `${process.env.GRAFi_MAIN_HOST}/api/users/${userId}/visit-logs/${logId}`,
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users/${userId}/visit-logs/${logId}`,
   );
   return data;
 };

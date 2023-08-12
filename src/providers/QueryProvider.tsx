@@ -33,7 +33,7 @@ export function QueryProvider({
             suspense: true,
           },
           mutations: {
-            useErrorBoundary: true,
+            useErrorBoundary: false,
           },
           ...queryOptions?.defaultOptions,
         },
