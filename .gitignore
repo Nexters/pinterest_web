@@ -37,4 +37,6 @@ next-env.d.ts
 #eslint
 .eslintcache
 
+# env vars
 .env
+.env*

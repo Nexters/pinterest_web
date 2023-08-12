@@ -19,6 +19,7 @@ module.exports = {
         primary: '#202020',
         nudge: '#19F1CA',
         danger: '#F40000',
+        yellow: '#FACB2E',
         grayscale: {
           100: '#F3F3F3',
           200: '#E8E8E8',
@@ -78,6 +79,12 @@ module.exports = {
         '.text-button2': {
           fontFamily: theme('fontFamily.pretendard'),
           fontSize: '0.875rem',
+          fontWeight: '600',
+          lineHeight: '1',
+        },
+        '.text-logo': {
+          fontFamily: theme('fontFamily.montserrat'),
+          fontSize: '1.75rem',
           fontWeight: '600',
           lineHeight: '1',
         },
