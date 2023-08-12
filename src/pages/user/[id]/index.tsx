@@ -19,6 +19,7 @@ import {
   FilmTitleModal,
   ProfileModal,
 } from '@/components/user';
+import { useLogin } from '@/hooks/useLogin';
 
 export interface Profile {
   profileImage: string;
@@ -34,6 +35,7 @@ interface Film {
 export default function User({
   userId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { login: isLogin } = useLogin();
   const { isLoading, data: filmList, isError } = useGetFilms(userId);
   const { data: userData } = useGetUser(userId);
 
@@ -75,6 +77,7 @@ export default function User({
           src={userData.profile_img ?? '/images/avatar-placeholder.png'}
           nickname={userData.name}
           viewCount={userData.visitors}
+          isLogin={isLogin}
           displayMeta
           className='tw-mx-5'
           onEditProfile={handleEditProfile}
@@ -91,29 +94,42 @@ export default function User({
             filmId={film_id}
             photos={photo_cuts}
             title={title}
+            isLogin={isLogin}
             onEditTitle={() => handleEditTitle(title, film_id)}
           />
         ))}
       </div>
-      <Button
-        variant='rounded'
-        className='tw-fixed tw-bottom-5 tw-right-5'
-        onClick={() => dispatch({ type: 'OPEN_ADD_MENU' })}
-      >
-        ADD
-      </Button>
-      <Tooltip
-        text='내 그라피를 만들어보세요!'
-        className='tw-absolute tw-right-3.5 tw-top-2.5'
-      >
+      {isLogin && (
+        <Button
+          variant='rounded'
+          className='tw-fixed tw-bottom-5 tw-right-5'
+          onClick={() => dispatch({ type: 'OPEN_ADD_MENU' })}
+        >
+          ADD
+        </Button>
+      )}
+      {isLogin ? (
         <Icon
           iconType='Menu'
           onClick={() => dispatch({ type: 'OPEN_DRAWER' })}
-          className='tw-cursor-pointer'
+          className='tw-absolute tw-right-3.5 tw-top-2.5 tw-cursor-pointer'
           width={32}
           height={32}
         />
-      </Tooltip>
+      ) : (
+        <Tooltip
+          text='내 그라피를 만들어보세요!'
+          className='tw-absolute tw-right-3.5 tw-top-2.5'
+        >
+          <Icon
+            iconType='Menu'
+            onClick={() => dispatch({ type: 'OPEN_DRAWER' })}
+            className='tw-cursor-pointer'
+            width={32}
+            height={32}
+          />
+        </Tooltip>
+      )}
       {userData && isProfileModalOpen && (
         <ProfileModal
           isOpen={isProfileModalOpen}
