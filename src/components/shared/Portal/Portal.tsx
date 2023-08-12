@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useMounted } from '@/hooks';
 
@@ -12,5 +12,5 @@ export function Portal({ children }: PropsWithChildren) {
   elementRef.current = document.getElementById('portal-root');
   if (!elementRef.current) return null;
 
-  return createPortal(children as any, elementRef.current);
+  return createPortal(children, elementRef.current);
 }
