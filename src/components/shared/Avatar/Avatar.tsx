@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import type { ComponentProps, MouseEventHandler } from 'react';
-import { Profile } from '@/pages/user/[id]';
 import clsx from 'clsx';
 import { cn } from '@/utils/cn';
 
@@ -13,7 +12,7 @@ interface AvatarProps {
   displayMeta?: boolean;
   description?: string;
   viewCount?: number;
-  onEditProfile?: (info: Profile) => void;
+  onEditProfile?: () => void;
 }
 
 type Props = AvatarProps &
@@ -30,8 +29,7 @@ export function Avatar({
   ...restProps
 }: Props) {
   const handleEditProfile: MouseEventHandler<HTMLElement> = () => {
-    if (onEditProfile)
-      onEditProfile({ profileImage: src, nickname, description });
+    if (onEditProfile) onEditProfile();
   };
 
   return (

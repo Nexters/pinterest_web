@@ -49,7 +49,7 @@ export default function User({
     dispatch({ type: 'OPEN_FILM_TITLE_MODAL' });
   };
 
-  const handleEditProfile = (info: Profile) => {
+  const handleEditProfile = () => {
     dispatch({ type: 'OPEN_PROFILE_MODAL' });
   };
 
