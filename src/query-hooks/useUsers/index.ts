@@ -1,7 +1,15 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import usersApis from './apis';
 import usersKeys from './keys';
 import { CreateUser, CreateVisitLog, EditUser } from './type';
+
+interface VisitLogResponse {
+  log_id: number;
+  user_id: string;
+  created_at: string;
+  name: string;
+  text: string;
+}
 
 const useSignInUser = () => {
   return useMutation({
@@ -30,7 +38,7 @@ const useGetUser = (userId: string) => {
 };
 
 const useGetUserVisitLogs = (userId: string) => {
-  return useQuery({
+  return useQuery<VisitLogResponse[]>({
     queryFn: () => usersApis.getUserVisitLogs(userId),
     queryKey: usersKeys.visitLogs(userId),
   });
@@ -38,14 +46,13 @@ const useGetUserVisitLogs = (userId: string) => {
 
 const useCreateUserVisitLog = () => {
   return useMutation({
-    mutationFn: ({ userId, body }: { userId: string; body: CreateVisitLog }) =>
-      usersApis.createUserVisitLog(userId, body),
+    mutationFn: (param: CreateVisitLog) => usersApis.createUserVisitLog(param),
   });
 };
 
 const useDeleteUserVisitLog = () => {
   return useMutation({
-    mutationFn: ({ userId, logId }: { userId: string; logId: string }) =>
+    mutationFn: ({ userId, logId }: { userId: string; logId: number }) =>
       usersApis.deleteUserVisitLog(userId, logId),
   });
 };
