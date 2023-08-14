@@ -67,6 +67,7 @@ export default function User({
     dispatch({ type: 'OPEN_PROFILE_MODAL' });
   };
 
+  if (isLogin === null) return null;
   if (isLoading) return <div>로딩중...</div>;
   if (isError) return <div>에러 ㅋ</div>;
 
