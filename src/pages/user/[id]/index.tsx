@@ -14,6 +14,7 @@ import { Drawer } from '@/components/shared/Drawer';
 import { AddMenu } from '@/components/user';
 import {
   CameraRoll,
+  EmptyView,
   FilmAddModal,
   FilmSelectModal,
   FilmTitleModal,
@@ -72,7 +73,7 @@ export default function User({
   if (isError) return <div>에러 ㅋ</div>;
 
   return (
-    <div className='tw-relative tw-overflow-x-hidden tw-pb-10 tw-pt-3'>
+    <div className='tw-relative tw-min-h-screen tw-overflow-x-hidden tw-pb-10 tw-pt-3'>
       {userData && (
         <Avatar
           src={userData.profile_img ?? '/images/avatar-placeholder.png'}
@@ -99,6 +100,11 @@ export default function User({
             onEditTitle={() => handleEditTitle(title, film_id)}
           />
         ))}
+        {!filmList && (
+          <div className='tw-mt-[60px]'>
+            <EmptyView isLogin={isLogin} />
+          </div>
+        )}
       </div>
       {isLogin && (
         <Button
