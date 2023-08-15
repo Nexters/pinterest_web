@@ -78,6 +78,7 @@ export default function User({
         <Avatar
           src={userData.profile_img ?? '/images/avatar-placeholder.png'}
           nickname={userData.name}
+          description={userData.text ?? ''}
           viewCount={userData.visitors}
           isLogin={isLogin}
           displayMeta
