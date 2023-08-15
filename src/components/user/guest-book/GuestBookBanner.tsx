@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/shared';
+import { useLogin } from '@/hooks/useLogin';
 
 interface GuestBookBannerProps {
   visitLogs?: VisitLog[];
@@ -30,6 +31,7 @@ export const GuestBookBanner = ({
   visitLogs,
   ownerName,
 }: GuestBookBannerProps) => {
+  const { login } = useLogin();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const translateY = -activeIndex * 36;
@@ -65,11 +67,22 @@ export const GuestBookBanner = ({
   if (!visitLogs || !visitLogs.length) {
     return (
       <div className='tw-mx-5 tw-mb-5 tw-mt-3 tw-bg-grayscale-700 tw-px-3.5 tw-py-1.5 tw-text-white'>
-        <div className='tw-flex tw-flex-row tw-gap-2'>
-          <Icon iconType='GuestBook' />
-          <p>{`${ownerName}님께 방명록을 남겨주세요`}</p>
-        </div>
-        <button className='tw-text-grayscale-300'>작성하기</button>
+        {login ? (
+          <div className='tw-flex tw-flex-row tw-gap-2'>
+            <Icon iconType='GuestBook' />
+            <p className='tw-text-grayscale-300'>
+              아직 작성된 방명록이 없습니다
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className='tw-flex tw-flex-row tw-gap-2'>
+              <Icon iconType='GuestBook' />
+              <p>{`${ownerName}님께 방명록을 남겨주세요`}</p>
+            </div>
+            <button className='tw-text-grayscale-300'>작성하기</button>
+          </>
+        )}
       </div>
     );
   }
