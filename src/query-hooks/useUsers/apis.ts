@@ -14,7 +14,8 @@ const signInUser = async (userId: string, password: string) => {
   return data;
 };
 
-const editUser = async (body: EditUser) => {
+const editUser = async (body: EditUser): Promise<UserResponse> => {
+  console.log(body);
   const { data } = await axios.put(
     `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/users`,
     body,

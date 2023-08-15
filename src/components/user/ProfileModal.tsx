@@ -5,7 +5,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import { convertImageToBase64 } from '@/utils';
+import { imagesApis } from '@/query-hooks/useImages';
+import { useEditUser } from '@/query-hooks/useUsers';
 import { Avatar, Icon, Input, Modal } from '@/components/shared';
 
 interface Props
@@ -27,9 +28,20 @@ export function ProfileModal({
   const [nickname, setNickname] = useState(nicknameFromProps);
   const [description, setDescription] = useState(descriptionFromProps);
 
+  const { mutate: editProfile } = useEditUser();
+
   const handleSave: MouseEventHandler<HTMLButtonElement> = (e) => {
-    // TODO: API 연결
-    if (onCancel) onCancel(e);
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      editProfile({
+        user_id: userId,
+        profile_image: image,
+        name: nickname,
+        text: description,
+      });
+    }
+
+    onCancel?.(e);
   };
 
   const handleNicknameChange = (value: string) => {
@@ -44,17 +56,14 @@ export function ProfileModal({
     fileInputRef.current?.click();
   };
 
-  const onChangeFile: ChangeEventHandler<HTMLInputElement> = async (e) => {
+  const handleFileUpload: ChangeEventHandler<HTMLInputElement> = async (e) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
-    try {
-      const converted = await convertImageToBase64(file);
-      if (typeof converted === 'string') setImage(converted);
-    } catch (err) {
-      console.error(err);
-    }
-
-    // TODO: API 연결
+    const { image_url, presigned_url } = await imagesApis.getPresignedUrl(
+      file.name,
+    );
+    await imagesApis.uploadFile(presigned_url, file);
+    setImage(image_url);
   };
 
   return (
@@ -78,7 +87,7 @@ export function ProfileModal({
             accept='image/*'
             id='file'
             hidden
-            onChange={onChangeFile}
+            onChange={handleFileUpload}
           />
           <Input
             label='이름'
