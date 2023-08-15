@@ -10,7 +10,7 @@ export default async function handler(
   const user_id = req.query.user_id;
   const log_id = req.query.log_id;
   const url = `/users/${user_id}/visit-logs/${log_id}`;
-
+  
   try {
     if (req.method === HttpMethod.DELETE) {
       const result = await instance.delete(url);
