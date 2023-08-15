@@ -11,3 +11,4 @@ export { default as Camera } from './camera.svg';
 export { default as ArrowDown } from './arrow-down.svg';
 export { default as Pencil } from './pencil.svg';
 export { default as Close } from './close.svg';
+export { default as GuestBook } from './guest_book.svg';
