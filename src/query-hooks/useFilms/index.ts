@@ -43,7 +43,6 @@ const useGetFilm = (filmId: number) => {
 const useDeleteFilm = () => {
   return useMutation({
     mutationFn: (filmId: number) => filmsApis.deleteFilm(filmId),
-    // NOTE: 추가 시 onSuccess 추가 예정
   });
 };
 

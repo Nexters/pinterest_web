@@ -7,22 +7,22 @@ import { ItemsSlide } from '@/components/user/item/ItemsSlide';
 // NOTE : 온보딩 페이지
 const items = [
   {
-    id: 1,
+    photo_cut_id: 1,
     title: '',
     image: '/images/onboarding1.png',
-    description: '',
+    text: '',
   },
   {
-    id: 2,
+    photo_cut_id: 2,
     title: '',
     image: '/images/onboarding2.png',
-    description: '',
+    text: '',
   },
   {
-    id: 3,
+    photo_cut_id: 3,
     title: '',
     image: '/images/onboarding3.png',
-    description: '',
+    text: '',
   },
 ];
 export default function Home() {

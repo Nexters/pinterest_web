@@ -3,7 +3,10 @@ import { HttpMethod } from '@/constants/httpMethods';
 import { AxiosError } from 'axios';
 import { instance } from '@/utils/axiosInstance';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const url = `/films`;
   const film_id = req.query.film_id;
 

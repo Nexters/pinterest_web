@@ -1,15 +1,32 @@
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
-import { convertImageToBase64 } from '@/utils';
-import { Icon, ImageFrame, Input, TextButton, Textarea } from '@/components/shared';
-import { isString } from '@/utils/type-util';
+import { useEffect, useRef, useState } from 'react';
+import { imagesApis } from '@/query-hooks/useImages';
+import { useCreatePhotoCut } from '@/query-hooks/usePhotoCuts';
+import {
+  Icon,
+  ImageFrame,
+  Input,
+  TextButton,
+  Textarea,
+} from '@/components/shared';
 
 export default function AddPage() {
   const router = useRouter();
-  const { id, title } = router.query;
+
+  useEffect(() => {
+    const user_id = localStorage.getItem('userId');
+    if (!user_id) router.push('/');
+  }, []);
+
+  const { id, filmId } = router.query;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
+
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
+
+  const createPhotoCut = useCreatePhotoCut();
 
   const handleClick = () => {
     if (inputRef.current) {
@@ -20,12 +37,29 @@ export default function AddPage() {
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       const file = e.target.files[0];
-      const convertedImage = await convertImageToBase64(file);
-      if (typeof convertedImage === 'string') {
-        setImage(convertedImage);
+      const { image_url, presigned_url } = await imagesApis.getPresignedUrl(
+        file.name,
+      );
+      await imagesApis.uploadFile(presigned_url, file);
+
+      if (typeof image_url === 'string') {
+        setImage(image_url);
       }
-      // Upload API 연결
     }
+  };
+
+  const handleSubmit = () => {
+    createPhotoCut.mutate(
+      {
+        film_id: Number(filmId),
+        title: String(title),
+        text,
+        image: String(image),
+      },
+      {
+        onSuccess: () => router.push(`/user/${id}/${filmId}/item`),
+      },
+    );
   };
 
   return (
@@ -35,10 +69,7 @@ export default function AddPage() {
         <TextButton color='danger' onClick={router.back}>
           취소
         </TextButton>
-        <TextButton
-          color='primary'
-          onClick={() => router.push(`/user/${id}/item`)}
-        >
+        <TextButton color='primary' onClick={handleSubmit}>
           저장
         </TextButton>
       </div>
@@ -65,9 +96,15 @@ export default function AddPage() {
 
       {/** 본문 입력 영역 */}
       <div className='tw-flex tw-flex-col tw-gap-3.5 tw-px-5 tw-py-6'>
-        <Input placeholder='제목을 입력해주세요.' value={isString(title) ? title : ''} readOnly />
-        <Textarea placeholder='설명을 입력해주세요.' rows={3} />
-        {/* <Input placeholder='링크를 입력해주세요.(선택)' /> */}
+        <Input
+          placeholder='제목을 입력해주세요.'
+          onValueChange={(title) => setTitle(title)}
+        />
+        <Textarea
+          placeholder='설명을 입력해주세요.'
+          rows={3}
+          onValueChange={(text) => setText(text)}
+        />
       </div>
     </div>
   );
