@@ -1,7 +1,10 @@
 import axios from 'axios';
+import { FilmsResponse } from '@/types/response';
 
-const getFilms = async (userId: string) => {
-  const { data } = await axios.get(`/api/films?userId=${userId}`);
+const getFilms = async (userId: string): Promise<FilmsResponse[]> => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/films?user_id=${userId}`,
+  );
 
   return data;
 };
@@ -9,7 +12,7 @@ const editFilms = async (filmId: number, title: string) => {
   const { data } = await axios.put(
     `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/films`,
     {
-      filmId,
+      film_id: filmId,
       title,
     },
   );
@@ -22,7 +25,7 @@ const createFilms = async (title: string, userId: string) => {
     `${process.env.NEXT_PUBLIC_GRAFI_MAIN_HOST}/api/films`,
     {
       title,
-      userId,
+      user_id: userId,
     },
   );
 
