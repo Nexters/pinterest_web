@@ -75,22 +75,19 @@ export const GuestBookBanner = ({
   }
 
   return (
-    <>
-      <div className='tw-mx-5 tw-mb-5 tw-mt-3 tw-h-9 tw-overflow-hidden tw-bg-grayscale-700 tw-px-3.5 tw-text-white'>
-        <div
-          className={`${
-            isTransitioning
-              ? 'tw-ease tw-transition-transform tw-duration-500'
-              : ''
-          }`}
-          style={{ transform: `translateY(${translateY}px)` }}
-        >
-          {visitLogs.map(({ log_id, name, text }) => (
-            <Log key={log_id} name={name} text={text} />
-          ))}
-        </div>
+    <div className='tw-mx-5 tw-mb-5 tw-mt-3 tw-h-9 tw-overflow-hidden tw-bg-grayscale-700 tw-px-3.5 tw-text-white'>
+      <div
+        className={`${
+          isTransitioning
+            ? 'tw-ease tw-transition-transform tw-duration-500'
+            : ''
+        }`}
+        style={{ transform: `translateY(${translateY}px)` }}
+      >
+        {visitLogs.map(({ log_id, name, text }) => (
+          <Log key={log_id} name={name} text={text} />
+        ))}
       </div>
-      <button onClick={nextItem}>down</button>
-    </>
+    </div>
   );
 };
