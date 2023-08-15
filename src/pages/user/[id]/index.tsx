@@ -180,8 +180,8 @@ export default function User({
       <AddMenu
         isOpen={isAddMenuOpen}
         onClose={() => dispatch({ type: 'CLOSE_ADD_MENU' })}
-        onAddFilm={handleOpenFilmSelect}
-        onUploadPhoto={() => dispatch({ type: 'OPEN_FILM_SELECT_MODAL' })}
+        onAddFilm={() => dispatch({ type: 'OPEN_FILM_ADD_MODAL' })}
+        onUploadPhoto={handleOpenFilmSelect}
       />
       <Drawer
         isOpen={isDrawerOpen}
