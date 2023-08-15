@@ -65,6 +65,15 @@ export default function User({
     dispatch({ type: 'OPEN_PROFILE_MODAL' });
   };
 
+  const handleOpenFilmSelect = () => {
+    if (filmList?.length === 0) {
+      alert('필름을 먼저 추가해주세요!');
+      return;
+    }
+
+    dispatch({ type: 'OPEN_FILM_SELECT_MODAL' });
+  };
+
   if (isLogin === null) return null;
   if (isLoading) return <div>로딩중...</div>;
   if (isError) return <div>에러 ㅋ</div>;
@@ -171,7 +180,7 @@ export default function User({
       <AddMenu
         isOpen={isAddMenuOpen}
         onClose={() => dispatch({ type: 'CLOSE_ADD_MENU' })}
-        onAddFilm={() => dispatch({ type: 'OPEN_FILM_ADD_MODAL' })}
+        onAddFilm={handleOpenFilmSelect}
         onUploadPhoto={() => dispatch({ type: 'OPEN_FILM_SELECT_MODAL' })}
       />
       <Drawer
