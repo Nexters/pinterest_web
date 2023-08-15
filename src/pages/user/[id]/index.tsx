@@ -29,8 +29,8 @@ export interface Profile {
 }
 
 interface Film {
-  filmId: number | null;
-  title: string | null;
+  filmId: number;
+  title: string;
 }
 
 export default function User({
@@ -51,10 +51,7 @@ export default function User({
     isFilmTitleModalOpen,
   } = status;
 
-  const [editingFilm, setEditingFilm] = useState<Film>({
-    title: null,
-    filmId: null,
-  });
+  const [editingFilm, setEditingFilm] = useState<Film | null>(null);
 
   const handleEditTitle = (title: string, filmId: number) => {
     setEditingFilm({
@@ -149,10 +146,10 @@ export default function User({
           onCancel={() => dispatch({ type: 'CLOSE_PROFILE_MODAL' })}
         />
       )}
-      {isFilmTitleModalOpen && editingFilm.filmId && (
+      {isFilmTitleModalOpen && editingFilm && (
         <FilmTitleModal
           filmId={editingFilm.filmId}
-          title={editingFilm.title ?? ''}
+          title={editingFilm.title}
           isOpen={isFilmTitleModalOpen}
           onCancel={() => dispatch({ type: 'CLOSE_FILM_TITLE_MODAL' })}
         />
