@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
 export function useLogin() {
-  const [login, setLogin] = useState<boolean | null>(null);
+  const [login, setLogin] = useState<boolean>(false);
 
   useIsomorphicLayoutEffect(() => {
     const user_id = localStorage.getItem('userId');
