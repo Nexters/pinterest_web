@@ -36,7 +36,7 @@ export function FilmSelectModal({
 
   return (
     <Modal
-      title='필름 제목 수정'
+      title='필름 선택'
       onCancel={onCancel}
       onSave={handleSave}
       {...restProps}

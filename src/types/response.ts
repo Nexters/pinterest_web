@@ -17,3 +17,8 @@ export interface UserResponse {
   user_id: string;
   visitors: number;
 }
+
+export interface PresignedUrlResponse {
+  image_url: string;
+  presigned_url: string;
+}
