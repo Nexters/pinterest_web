@@ -47,7 +47,7 @@ export function Avatar({
       <div
         className={cn(
           'tw-relative tw-h-20 tw-w-20 tw-overflow-hidden tw-rounded-full',
-          // isLogin && 'tw-cursor-pointer',
+          isLogin && 'tw-cursor-pointer',
         )}
         onClick={handleEditProfile}
       >
@@ -84,7 +84,7 @@ export function Avatar({
             )}
             onClick={handleEditProfile}
           >
-            {description.length === 0 && HINT_TEXT}
+            {description.length === 0 ? HINT_TEXT : description}
           </p>
         </div>
       )}

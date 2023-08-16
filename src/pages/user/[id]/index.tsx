@@ -32,8 +32,8 @@ export interface Profile {
 }
 
 interface Film {
-  filmId: number | null;
-  title: string | null;
+  filmId: number;
+  title: string;
 }
 
 export default function User({
@@ -57,10 +57,7 @@ export default function User({
     isFilmTitleModalOpen,
   } = status;
 
-  const [editingFilm, setEditingFilm] = useState<Film>({
-    title: null,
-    filmId: null,
-  });
+  const [editingFilm, setEditingFilm] = useState<Film | null>(null);
 
   const handleEditTitle = (title: string, filmId: number) => {
     setEditingFilm({
@@ -74,6 +71,15 @@ export default function User({
     dispatch({ type: 'OPEN_PROFILE_MODAL' });
   };
 
+  const handleOpenFilmSelect = () => {
+    if (filmList?.length === 0) {
+      alert('필름을 먼저 추가해주세요!');
+      return;
+    }
+
+    dispatch({ type: 'OPEN_FILM_SELECT_MODAL' });
+  };
+
   if (isLoading) return <LoadingView />;
   if (isError) return <div>에러 ㅋ</div>;
 
@@ -83,6 +89,7 @@ export default function User({
         <Avatar
           src={userData.profile_img ?? '/images/avatar-placeholder.png'}
           nickname={userData.name}
+          description={userData.text ?? ''}
           viewCount={userData.visitors}
           isLogin={userId === storedUserId}
           displayMeta
@@ -158,10 +165,10 @@ export default function User({
           onCancel={() => dispatch({ type: 'CLOSE_PROFILE_MODAL' })}
         />
       )}
-      {isFilmTitleModalOpen && editingFilm.filmId && (
+      {isFilmTitleModalOpen && editingFilm && (
         <FilmTitleModal
           filmId={editingFilm.filmId}
-          title={editingFilm.title ?? ''}
+          title={editingFilm.title}
           isOpen={isFilmTitleModalOpen}
           onCancel={() => dispatch({ type: 'CLOSE_FILM_TITLE_MODAL' })}
         />
@@ -184,7 +191,7 @@ export default function User({
         isOpen={isAddMenuOpen}
         onClose={() => dispatch({ type: 'CLOSE_ADD_MENU' })}
         onAddFilm={() => dispatch({ type: 'OPEN_FILM_ADD_MODAL' })}
-        onUploadPhoto={() => dispatch({ type: 'OPEN_FILM_SELECT_MODAL' })}
+        onUploadPhoto={handleOpenFilmSelect}
       />
       <Drawer
         isOpen={isDrawerOpen}

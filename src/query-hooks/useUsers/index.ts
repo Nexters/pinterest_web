@@ -19,8 +19,15 @@ const useSignInUser = () => {
 };
 
 const useEditUser = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (body: EditUser) => usersApis.editUser(body),
+    onSuccess: () => {
+      const userId = localStorage.getItem('userId');
+      if (!userId) return;
+
+      queryClient.invalidateQueries(usersKeys.item(userId));
+    },
   });
 };
 
