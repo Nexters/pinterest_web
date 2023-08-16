@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/shared';
-import { useLogin } from '@/hooks/useLogin';
 
 interface GuestBookBannerProps {
   visitLogs?: VisitLog[];
   ownerName: string;
+  isLogin: boolean;
 }
 
 interface VisitLog {
@@ -30,8 +30,8 @@ const Log = ({ text, name }: Pick<VisitLog, 'name' | 'text'>) => {
 export const GuestBookBanner = ({
   visitLogs,
   ownerName,
+  isLogin,
 }: GuestBookBannerProps) => {
-  const { login } = useLogin();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const translateY = -activeIndex * 36;
@@ -67,7 +67,7 @@ export const GuestBookBanner = ({
   if (!visitLogs || !visitLogs.length) {
     return (
       <div className='tw-mx-5 tw-mb-5 tw-mt-3 tw-bg-grayscale-700 tw-px-3.5 tw-py-1.5 tw-text-white'>
-        {login ? (
+        {isLogin ? (
           <div className='tw-flex tw-flex-row tw-gap-2'>
             <Icon iconType='GuestBook' />
             <p className='tw-text-grayscale-300'>

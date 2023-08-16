@@ -21,7 +21,7 @@ import {
   ProfileModal,
 } from '@/components/user';
 import { GuestBookBanner } from '@/components/user/guest-book/GuestBookBanner';
-import { useLogin } from '@/hooks/useLogin';
+import { useStoredUserId } from '@/hooks/useStoredUserId';
 
 export interface Profile {
   profileImage: string;
@@ -37,12 +37,13 @@ interface Film {
 export default function User({
   userId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { login: isLogin } = useLogin();
+  const { storedUserId } = useStoredUserId();
   const { isLoading, data: filmList, isError } = useGetFilms(userId);
   const { data: userData } = useGetUser(userId);
   const { data: visitLogData } = useGetUserVisitLogs(userId);
 
   const { status, dispatch } = useSafeContext(ModalContext);
+  const getIsLogin = () => userId === storedUserId;
 
   const {
     isDrawerOpen,
@@ -80,14 +81,18 @@ export default function User({
           src={userData.profile_img ?? '/images/avatar-placeholder.png'}
           nickname={userData.name}
           viewCount={userData.visitors}
-          isLogin={isLogin}
+          isLogin={userId === storedUserId}
           displayMeta
           className='tw-mx-5'
           onEditProfile={handleEditProfile}
         />
       )}
       {userData && (
-        <GuestBookBanner ownerName={userData.name} visitLogs={visitLogData} />
+        <GuestBookBanner
+          isLogin={userId === storedUserId}
+          ownerName={userData.name}
+          visitLogs={visitLogData}
+        />
       )}
       <div className='tw-flex tw-flex-col tw-gap-4'>
         {filmList?.map(({ film_id, photo_cuts, title }) => (
@@ -97,17 +102,17 @@ export default function User({
             filmId={film_id}
             photos={photo_cuts}
             title={title}
-            isLogin={isLogin}
+            isLogin={getIsLogin()}
             onEditTitle={() => handleEditTitle(title, film_id)}
           />
         ))}
         {!filmList && (
           <div className='tw-mt-[60px]'>
-            <EmptyView isLogin={isLogin} />
+            <EmptyView isLogin={getIsLogin()} />
           </div>
         )}
       </div>
-      {isLogin && (
+      {getIsLogin() && (
         <Button
           variant='rounded'
           className='tw-fixed tw-bottom-5 tw-right-5'
@@ -116,7 +121,7 @@ export default function User({
           ADD
         </Button>
       )}
-      {isLogin ? (
+      {getIsLogin() ? (
         <Icon
           iconType='Menu'
           onClick={() => dispatch({ type: 'OPEN_DRAWER' })}

@@ -10,8 +10,8 @@ import {
   usersKeys,
 } from '@/query-hooks/useUsers';
 import { Icon, Input, Modal, Textarea } from '@/components/shared';
-import { useLogin } from '@/hooks/useLogin';
 import { useModal } from '@/hooks/useModal';
+import { useStoredUserId } from '@/hooks/useStoredUserId';
 import { cn } from '@/utils/cn';
 
 interface GuestBookProps {
@@ -23,7 +23,8 @@ export default function GuestBookPage({ userId }: GuestBookProps) {
   const { isOpen, open: openModal, close: closeModal } = useModal();
   const [writerName, setWriterName] = useState('');
   const [content, setContent] = useState('');
-  const { login } = useLogin();
+  const { storedUserId } = useStoredUserId();
+  const getIsLogin = () => userId === storedUserId;
 
   const { data, isLoading } = useGetUserVisitLogs(userId);
   const createMutation = useCreateUserVisitLog();
@@ -91,7 +92,7 @@ export default function GuestBookPage({ userId }: GuestBookProps) {
                     {created_at}
                   </span>
                 </div>
-                {login && (
+                {getIsLogin() && (
                   <Icon
                     iconType='Close'
                     className='tw-cursor-pointer tw-fill-grayscale-300'
