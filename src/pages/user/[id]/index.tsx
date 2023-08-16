@@ -1,4 +1,5 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { useSafeContext } from '@/hooks';
@@ -6,7 +7,7 @@ import { ModalContext } from '@/providers';
 import { useGetFilms } from '@/query-hooks/useFilms';
 import filmsApis from '@/query-hooks/useFilms/api';
 import filmsKeys from '@/query-hooks/useFilms/keys';
-import { useGetUser } from '@/query-hooks/useUsers';
+import { useGetUser, useGetUserVisitLogs } from '@/query-hooks/useUsers';
 import usersApis from '@/query-hooks/useUsers/apis';
 import usersKeys from '@/query-hooks/useUsers/keys';
 import { Avatar, Button, Icon, Tooltip } from '@/components/shared';
@@ -20,7 +21,8 @@ import {
   FilmTitleModal,
   ProfileModal,
 } from '@/components/user';
-import { useLogin } from '@/hooks/useLogin';
+import { GuestBookBanner } from '@/components/user/guest-book/GuestBookBanner';
+import { useStoredUserId } from '@/hooks/useStoredUserId';
 
 export interface Profile {
   profileImage: string;
@@ -36,11 +38,14 @@ interface Film {
 export default function User({
   userId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { login: isLogin } = useLogin();
+  const router = useRouter();
+  const { storedUserId } = useStoredUserId();
   const { isLoading, data: filmList, isError } = useGetFilms(userId);
   const { data: userData } = useGetUser(userId);
+  const { data: visitLogData } = useGetUserVisitLogs(userId);
 
   const { status, dispatch } = useSafeContext(ModalContext);
+  const getIsLogin = () => userId === storedUserId;
 
   const {
     isDrawerOpen,
@@ -74,7 +79,6 @@ export default function User({
     dispatch({ type: 'OPEN_FILM_SELECT_MODAL' });
   };
 
-  if (isLogin === null) return null;
   if (isLoading) return <div>로딩중...</div>;
   if (isError) return <div>에러 ㅋ</div>;
 
@@ -86,15 +90,20 @@ export default function User({
           nickname={userData.name}
           description={userData.text ?? ''}
           viewCount={userData.visitors}
-          isLogin={isLogin}
+          isLogin={userId === storedUserId}
           displayMeta
           className='tw-mx-5'
           onEditProfile={handleEditProfile}
         />
       )}
-      <div className='tw-mx-5 tw-mb-5 tw-mt-3 tw-bg-grayscale-700 tw-px-3.5 tw-py-1.5 tw-text-white'>
-        방명록 기능이 추가될 공간입니다 ㅎ
-      </div>
+      {userData && (
+        <GuestBookBanner
+          onClick={() => router.push(`/user/${userId}/guest-book`)}
+          isLogin={userId === storedUserId}
+          ownerName={userData.name}
+          visitLogs={visitLogData}
+        />
+      )}
       <div className='tw-flex tw-flex-col tw-gap-4'>
         {filmList?.map(({ film_id, photo_cuts, title }) => (
           <CameraRoll
@@ -103,17 +112,17 @@ export default function User({
             filmId={film_id}
             photos={photo_cuts}
             title={title}
-            isLogin={isLogin}
+            isLogin={getIsLogin()}
             onEditTitle={() => handleEditTitle(title, film_id)}
           />
         ))}
         {!filmList && (
           <div className='tw-mt-[60px]'>
-            <EmptyView isLogin={isLogin} />
+            <EmptyView isLogin={getIsLogin()} />
           </div>
         )}
       </div>
-      {isLogin && (
+      {getIsLogin() && (
         <Button
           variant='rounded'
           className='tw-fixed tw-bottom-5 tw-right-5'
@@ -122,7 +131,7 @@ export default function User({
           ADD
         </Button>
       )}
-      {isLogin ? (
+      {getIsLogin() ? (
         <Icon
           iconType='Menu'
           onClick={() => dispatch({ type: 'OPEN_DRAWER' })}
@@ -203,6 +212,9 @@ export const getServerSideProps: GetServerSideProps<{
     ),
     queryClient.prefetchQuery(usersKeys.item(userId), () =>
       usersApis.getUser(userId),
+    ),
+    queryClient.prefetchQuery(usersKeys.visitLogs(userId), () =>
+      usersApis.getUserVisitLogs(userId),
     ),
   ]);
 
