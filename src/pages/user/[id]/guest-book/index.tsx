@@ -59,7 +59,7 @@ export default function GuestBookPage({ userId }: GuestBookProps) {
     );
   };
 
-  if (isLoading || !data) {
+  if (isLoading) {
     return <LoadingView darkMode />;
   }
 
@@ -79,7 +79,7 @@ export default function GuestBookPage({ userId }: GuestBookProps) {
         <Icon iconType='Plus' color='#FFFFFF' onClick={openModal} />
       </div>
       <div className='tw-grid tw-grid-cols-2 tw-border-t tw-border-white'>
-        {data.map(({ log_id, name, created_at, text }, idx) => {
+        {data?.map(({ log_id, name, created_at, text }, idx) => {
           return (
             <div
               key={log_id}
