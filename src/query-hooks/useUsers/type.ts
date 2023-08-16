@@ -2,7 +2,7 @@ export interface EditUser {
   user_id: string;
   name?: string;
   text?: string;
-  profile_image?: string;
+  profile_img?: string;
   password?: string;
 }
 

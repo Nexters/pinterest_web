@@ -35,7 +35,7 @@ export function ProfileModal({
     if (userId) {
       editProfile({
         user_id: userId,
-        profile_image: image,
+        profile_img: image,
         name: nickname,
         text: description,
       });
