@@ -10,6 +10,7 @@ import filmsKeys from '@/query-hooks/useFilms/keys';
 import { useGetUser, useGetUserVisitLogs } from '@/query-hooks/useUsers';
 import usersApis from '@/query-hooks/useUsers/apis';
 import usersKeys from '@/query-hooks/useUsers/keys';
+import { LoadingView } from '@/components/loading/LoadingView';
 import { Avatar, Button, Icon, Tooltip } from '@/components/shared';
 import { Drawer } from '@/components/shared/Drawer';
 import { AddMenu } from '@/components/user';
@@ -79,7 +80,7 @@ export default function User({
     dispatch({ type: 'OPEN_FILM_SELECT_MODAL' });
   };
 
-  if (isLoading) return <div>로딩중...</div>;
+  if (isLoading) return <LoadingView />;
   if (isError) return <div>에러 ㅋ</div>;
 
   return (

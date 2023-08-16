@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { GetServerSideProps, GetStaticProps } from 'next/types';
+import { GetServerSideProps } from 'next/types';
 import { useState } from 'react';
 import { QueryClient, dehydrate, useQueryClient } from '@tanstack/react-query';
 import {
@@ -9,7 +9,8 @@ import {
   usersApis,
   usersKeys,
 } from '@/query-hooks/useUsers';
-import { Icon, Input, Modal, Textarea } from '@/components/shared';
+import { LoadingView } from '@/components/loading/LoadingView';
+import { Dimmed, Icon, Input, Modal, Textarea } from '@/components/shared';
 import { useModal } from '@/hooks/useModal';
 import { useStoredUserId } from '@/hooks/useStoredUserId';
 import { cn } from '@/utils/cn';
@@ -59,11 +60,16 @@ export default function GuestBookPage({ userId }: GuestBookProps) {
   };
 
   if (isLoading || !data) {
-    return <div>loading</div>;
+    return <LoadingView darkMode />;
   }
 
   return (
     <div className='tw-min-h-[100vh] tw-bg-black tw-pb-[140px]'>
+      {createMutation.isLoading && (
+        <Dimmed>
+          <LoadingView message='방명록을 저장 중입니다' />
+        </Dimmed>
+      )}
       <div className='tw-flex tw-items-center tw-justify-between tw-px-5 tw-py-4 tw-text-white'>
         <Icon
           iconType='LeftChevron'

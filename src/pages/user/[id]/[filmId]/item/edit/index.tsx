@@ -6,8 +6,10 @@ import { imagesApis } from '@/query-hooks/useImages';
 import { useEditPhotoCut, useGetPhotoCut } from '@/query-hooks/usePhotoCuts';
 import photoCutsApis from '@/query-hooks/usePhotoCuts/apis';
 import photoCutsKeys from '@/query-hooks/usePhotoCuts/keys';
+import { LoadingView } from '@/components/loading/LoadingView';
 import {
   Button,
+  Dimmed,
   Icon,
   ImageFrame,
   Input,
@@ -17,7 +19,7 @@ import {
 
 export default function EditPage() {
   const router = useRouter();
-  const { id, filmId, cutId } = router.query;
+  const { id, filmId, cutId, index } = router.query;
   const { data: item } = useGetPhotoCut(Number(cutId));
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -58,13 +60,19 @@ export default function EditPage() {
         image,
       },
       {
-        onSuccess: () => router.push(`/user/${id}/${filmId}/item`),
+        onSuccess: () =>
+          router.push(`/user/${id}/${filmId}/item?index=${index}`),
       },
     );
   };
 
   return (
     <div className='tw-h-[100vh] tw-w-full tw-bg-white'>
+      {editPhotoCut.isLoading && (
+        <Dimmed>
+          <LoadingView message='그라피를 업로드하는 중입니다' />
+        </Dimmed>
+      )}
       {/** Header */}
       <div className='tw-flex tw-justify-between tw-p-2.5'>
         <TextButton color='secondary' onClick={router.back}>
