@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/shared';
-import { useLogin } from '@/hooks/useLogin';
 
 interface GuestBookBannerProps {
   visitLogs?: VisitLog[];
   ownerName: string;
+  isLogin: boolean;
+  onClick: () => void;
 }
 
 interface VisitLog {
@@ -30,8 +31,9 @@ const Log = ({ text, name }: Pick<VisitLog, 'name' | 'text'>) => {
 export const GuestBookBanner = ({
   visitLogs,
   ownerName,
+  isLogin,
+  onClick,
 }: GuestBookBannerProps) => {
-  const { login } = useLogin();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const translateY = -activeIndex * 36;
@@ -66,8 +68,11 @@ export const GuestBookBanner = ({
 
   if (!visitLogs || !visitLogs.length) {
     return (
-      <div className='tw-mx-5 tw-mb-5 tw-mt-3 tw-bg-grayscale-700 tw-px-3.5 tw-py-1.5 tw-text-white'>
-        {login ? (
+      <div
+        onClick={onClick}
+        className='tw-mx-5 tw-mb-5 tw-mt-3 tw-cursor-pointer tw-bg-grayscale-700 tw-px-3.5 tw-py-1.5 tw-text-white'
+      >
+        {isLogin ? (
           <div className='tw-flex tw-flex-row tw-gap-2'>
             <Icon iconType='GuestBook' />
             <p className='tw-text-grayscale-300'>
@@ -88,7 +93,10 @@ export const GuestBookBanner = ({
   }
 
   return (
-    <div className='tw-mx-5 tw-mb-5 tw-mt-3 tw-h-9 tw-overflow-hidden tw-bg-grayscale-700 tw-px-3.5 tw-text-white'>
+    <div
+      onClick={onClick}
+      className='tw-mx-5 tw-mb-5 tw-mt-3 tw-h-9 tw-cursor-pointer tw-overflow-hidden tw-bg-grayscale-700 tw-px-3.5 tw-text-white'
+    >
       <div
         className={`${
           isTransitioning
