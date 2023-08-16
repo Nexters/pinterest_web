@@ -1,4 +1,5 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { useSafeContext } from '@/hooks';
@@ -37,6 +38,7 @@ interface Film {
 export default function User({
   userId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
   const { storedUserId } = useStoredUserId();
   const { isLoading, data: filmList, isError } = useGetFilms(userId);
   const { data: userData } = useGetUser(userId);
@@ -89,6 +91,7 @@ export default function User({
       )}
       {userData && (
         <GuestBookBanner
+          onClick={() => router.push(`/user/${userId}/guest-book`)}
           isLogin={userId === storedUserId}
           ownerName={userData.name}
           visitLogs={visitLogData}
