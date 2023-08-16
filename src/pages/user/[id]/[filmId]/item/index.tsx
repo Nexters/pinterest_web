@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { filmsApis, filmsKeys, useGetFilm } from '@/query-hooks/useFilms';
+import { LoadingView } from '@/components/loading/LoadingView';
 import { Icon } from '@/components/shared';
 import { ItemsSlide } from '@/components/user/item/ItemsSlide';
 import { useLogin } from '@/hooks/useLogin';
@@ -11,15 +12,24 @@ import { useLogin } from '@/hooks/useLogin';
 export default function ItemPage() {
   const router = useRouter();
   const filmId = router.query.filmId as string;
-  const index = Number(router.query.index) || 0;
   const { login } = useLogin();
 
   const {
+    isLoading,
     data: { title: groupName, photo_cuts: items },
   } = useGetFilm(Number(filmId));
 
+  const index =
+    router.query.index === 'latest'
+      ? items.length - 1
+      : Number(router.query.index) || 0;
+
   const [activeIndex, setActiveIndex] = useState(index);
   const { title, text, photo_cut_id } = items[activeIndex];
+
+  if (isLoading) {
+    return <LoadingView darkMode />;
+  }
 
   return (
     <div className='bg-black tw-h-[100vh] tw-w-full'>
@@ -30,7 +40,7 @@ export default function ItemPage() {
             <h1 className='tw-text-main-headline tw-text-gray-200'>{title}</h1>
             {login && (
               <Link
-                href={`/user/${router.query.id}/${router.query.filmId}/item/edit?cutId=${photo_cut_id}`}
+                href={`/user/${router.query.id}/${router.query.filmId}/item/edit?cutId=${photo_cut_id}&index=${activeIndex}`}
               >
                 <Icon iconType='Edit' color='white' />
               </Link>

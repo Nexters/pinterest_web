@@ -2,7 +2,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { imagesApis } from '@/query-hooks/useImages';
 import { useCreatePhotoCut } from '@/query-hooks/usePhotoCuts';
+import { LoadingView } from '@/components/loading/LoadingView';
 import {
+  Dimmed,
   Icon,
   ImageFrame,
   Input,
@@ -57,13 +59,18 @@ export default function AddPage() {
         image: String(image),
       },
       {
-        onSuccess: () => router.push(`/user/${id}/${filmId}/item`),
+        onSuccess: () => router.push(`/user/${id}/${filmId}/item?index=latest`),
       },
     );
   };
 
   return (
     <div className='tw-h-[100vh] tw-w-full tw-bg-white'>
+      {createPhotoCut.isLoading && (
+        <Dimmed>
+          <LoadingView message='그라피를 업로드하는 중입니다' />
+        </Dimmed>
+      )}
       {/** Header */}
       <div className='tw-flex tw-justify-between tw-p-2.5'>
         <TextButton color='danger' onClick={router.back}>

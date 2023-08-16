@@ -28,8 +28,8 @@ export function CameraRoll({
 }: Props) {
   const router = useRouter();
 
-  const handleClickPhoto: MouseEventHandler<HTMLDivElement> = () => {
-    router.push(`/user/${userId}/${filmId}/item`);
+  const handleClickPhoto = (idx: number) => {
+    router.push(`/user/${userId}/${filmId}/item?index=${idx}`);
   };
 
   const handleClickEmptyCut: MouseEventHandler<HTMLDivElement> = () => {
@@ -56,11 +56,11 @@ export function CameraRoll({
         <span className='tw-text-caption-eng tw-text-grayscale-100'>{`${photos.length} Cuts`}</span>
       </div>
       <div className='tw-flex tw-gap-2.5 tw-overflow-x-scroll tw-scrollbar-hide'>
-        {photos.map(({ photo_cut_id, title, image }) => (
+        {photos.map(({ photo_cut_id, title, image }, idx) => (
           <div
             key={photo_cut_id}
             className='tw-aspect-[3/4] tw-h-[250px] tw-cursor-pointer tw-bg-grayscale-400'
-            onClick={handleClickPhoto}
+            onClick={() => handleClickPhoto(idx)}
           >
             <ImageFrame src={image} alt={title} />
           </div>
