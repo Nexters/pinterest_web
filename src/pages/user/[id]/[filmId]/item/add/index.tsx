@@ -59,7 +59,7 @@ export default function AddPage() {
         image: String(image),
       },
       {
-        onSuccess: () => router.push(`/user/${id}/${filmId}/item?index=latest`),
+        onSuccess: () => router.push(`/user/${id}`),
       },
     );
   };
