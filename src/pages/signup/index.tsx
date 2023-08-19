@@ -21,6 +21,7 @@ export default function SignUpPage() {
       { user_id: req.id, password: req.password },
       {
         onSuccess: (data) => {
+          localStorage.setItem('userId', data.user_id);
           router.push(`/user/${data.user_id}`);
           return;
         },
