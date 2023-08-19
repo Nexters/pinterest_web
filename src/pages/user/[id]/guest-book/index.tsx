@@ -95,7 +95,7 @@ export default function GuestBookPage({ userId }: GuestBookProps) {
                 <div className='tw-flex tw-flex-col tw-gap-1 tw-text-white'>
                   <span className='tw-text-caption'>{name}</span>
                   <span className='tw-text-caption tw-text-grayscale-400'>
-                    {created_at}
+                    {new Date(created_at).toLocaleDateString()}
                   </span>
                 </div>
                 {getIsLogin() && (
