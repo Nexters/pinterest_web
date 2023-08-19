@@ -27,6 +27,7 @@ export default function EditPage() {
 
   const [title, setTitle] = useState(item.title);
   const [text, setText] = useState(item.text);
+  const [imageIsLoading, setImageIsLoading] = useState(false);
 
   const editPhotoCut = useEditPhotoCut();
 
@@ -38,12 +39,14 @@ export default function EditPage() {
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
+      setImageIsLoading(true);
       const file = e.target.files[0];
 
       const { image_url, presigned_url } = await imagesApis.getPresignedUrl(
         file.name,
       );
       await imagesApis.uploadFile(presigned_url, file);
+      setImageIsLoading(false);
 
       if (typeof image_url === 'string') {
         setImage(image_url);
@@ -70,7 +73,10 @@ export default function EditPage() {
     <div className='tw-h-[100vh] tw-w-full tw-bg-white'>
       {editPhotoCut.isLoading && (
         <Dimmed>
-          <LoadingView message='그라피를 업로드하는 중입니다' />
+          <LoadingView
+            message='그라피를 업로드하는 중입니다'
+            className='tw-h-[100vh]'
+          />
         </Dimmed>
       )}
       {/** Header */}
@@ -84,23 +90,30 @@ export default function EditPage() {
       </div>
 
       {/** 이미지 영역 */}
-      <div className='tw-relative'>
-        <ImageFrame alt='item image' src={image} className='aspect-[3/4]' />
-        <input
-          type='file'
-          accept='image/*'
-          className='tw-hidden'
-          ref={inputRef}
-          onChange={handleFileUpload}
+      {imageIsLoading ? (
+        <LoadingView
+          message='사진을 업로드 하는 중입니다.'
+          className='tw-w-100 tw-aspect-[3/4] tw-bg-white'
         />
-        <Button
-          variant='rounded'
-          onClick={handleClick}
-          className='tw-absolute tw-bottom-3.5 tw-right-5 tw-h-12 tw-w-12 tw-bg-white'
-        >
-          <Icon iconType='Camera' width={32} height={32} />
-        </Button>
-      </div>
+      ) : (
+        <div className='tw-relative'>
+          <ImageFrame alt='item image' src={image} className='aspect-[3/4]' />
+          <input
+            type='file'
+            accept='image/*'
+            className='tw-hidden'
+            ref={inputRef}
+            onChange={handleFileUpload}
+          />
+          <Button
+            variant='rounded'
+            onClick={handleClick}
+            className='tw-absolute tw-bottom-3.5 tw-right-5 tw-h-12 tw-w-12 tw-bg-white'
+          >
+            <Icon iconType='Camera' width={32} height={32} />
+          </Button>
+        </div>
+      )}
 
       {/** 본문 입력 영역 */}
       <div className='tw-flex tw-flex-col tw-gap-3.5 tw-px-5 tw-py-6'>

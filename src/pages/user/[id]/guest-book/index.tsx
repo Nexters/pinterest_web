@@ -60,14 +60,17 @@ export default function GuestBookPage({ userId }: GuestBookProps) {
   };
 
   if (isLoading) {
-    return <LoadingView darkMode />;
+    return <LoadingView darkMode className='tw-h-[100vh]' />;
   }
 
   return (
     <div className='tw-min-h-[100vh] tw-bg-black tw-pb-[140px]'>
       {createMutation.isLoading && (
         <Dimmed>
-          <LoadingView message='방명록을 저장 중입니다' />
+          <LoadingView
+            message='방명록을 저장 중입니다'
+            className='tw-h-[100vh]'
+          />
         </Dimmed>
       )}
       <div className='tw-flex tw-items-center tw-justify-between tw-px-5 tw-py-4 tw-text-white'>

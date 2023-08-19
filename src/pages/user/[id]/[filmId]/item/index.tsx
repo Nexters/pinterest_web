@@ -34,7 +34,7 @@ export default function ItemPage({ userId }: ItemPageProps) {
   const { title, text, photo_cut_id } = items[activeIndex];
 
   if (isLoading) {
-    return <LoadingView darkMode />;
+    return <LoadingView darkMode className='tw-h-[100vh]' />;
   }
 
   return (

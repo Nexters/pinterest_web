@@ -80,7 +80,7 @@ export default function User({
     dispatch({ type: 'OPEN_FILM_SELECT_MODAL' });
   };
 
-  if (isLoading) return <LoadingView />;
+  if (isLoading) return <LoadingView className='tw-h-[100vh]' />;
   if (isError) return <div>에러 ㅋ</div>;
 
   return (

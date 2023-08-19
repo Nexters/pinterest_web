@@ -27,6 +27,7 @@ export default function AddPage() {
 
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
+  const [imageIsLoading, setImageIsLoading] = useState(false);
 
   const createPhotoCut = useCreatePhotoCut();
 
@@ -38,11 +39,13 @@ export default function AddPage() {
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
+      setImageIsLoading(true);
       const file = e.target.files[0];
       const { image_url, presigned_url } = await imagesApis.getPresignedUrl(
         file.name,
       );
       await imagesApis.uploadFile(presigned_url, file);
+      setImageIsLoading(false);
 
       if (typeof image_url === 'string') {
         setImage(image_url);
@@ -68,7 +71,10 @@ export default function AddPage() {
     <div className='tw-h-[100vh] tw-w-full tw-bg-white'>
       {createPhotoCut.isLoading && (
         <Dimmed>
-          <LoadingView message='그라피를 업로드하는 중입니다' />
+          <LoadingView
+            message='그라피를 업로드하는 중입니다'
+            className='tw-h-[100vh]'
+          />
         </Dimmed>
       )}
       {/** Header */}
@@ -85,20 +91,30 @@ export default function AddPage() {
       {image ? (
         <ImageFrame alt='item image' src={image} className='aspect-[3/4]' />
       ) : (
-        <div
-          className='tw-flex tw-aspect-[3/4] tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-bg-black'
-          onClick={handleClick}
-        >
-          <input
-            type='file'
-            accept='image/*'
-            className='tw-hidden'
-            ref={inputRef}
-            onChange={handleFileUpload}
-          />
-          <Icon iconType='Plus' width={68} height={68} color='#F3F3F3' />
-          <p className='tw-text-button-eng tw-text-gray-100'>ADD</p>
-        </div>
+        <>
+          {imageIsLoading ? (
+            <LoadingView
+              message='사진을 업로드 하는 중입니다.'
+              className='tw-w-100 tw-aspect-[3/4] tw-bg-black'
+              darkMode
+            />
+          ) : (
+            <div
+              className='tw-flex tw-aspect-[3/4] tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-bg-black'
+              onClick={handleClick}
+            >
+              <input
+                type='file'
+                accept='image/*'
+                className='tw-hidden'
+                ref={inputRef}
+                onChange={handleFileUpload}
+              />
+              <Icon iconType='Plus' width={68} height={68} color='#F3F3F3' />
+              <p className='tw-text-button-eng tw-text-gray-100'>ADD</p>
+            </div>
+          )}
+        </>
       )}
 
       {/** 본문 입력 영역 */}

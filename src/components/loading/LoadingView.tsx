@@ -11,12 +11,12 @@ export const LoadingView = ({ darkMode, message, className }: LoadingProps) => {
   return (
     <div
       className={cn(
-        'tw-w-100 tw-flex tw-h-[100vh] tw-flex-col tw-items-center tw-justify-center tw-gap-8',
+        'tw-w-100 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-8',
         className,
       )}
     >
       <Image
-        src={darkMode ? '/images/grafi_light.svg' : '/images/grafi_light.svg'}
+        src={darkMode ? '/images/grafi_dark.svg' : '/images/grafi_light.svg'}
         width={100}
         height={100}
         alt='film_image'
