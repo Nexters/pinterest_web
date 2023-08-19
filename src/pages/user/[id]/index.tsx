@@ -41,7 +41,12 @@ export default function User({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const { storedUserId } = useStoredUserId();
-  const { isLoading, data: filmList, isError } = useGetFilms(userId);
+  const {
+    isFetching,
+    isLoading,
+    data: filmList,
+    isError,
+  } = useGetFilms(userId);
   const { data: userData } = useGetUser(userId);
   const { data: visitLogData } = useGetUserVisitLogs(userId);
 
@@ -106,17 +111,24 @@ export default function User({
         />
       )}
       <div className='tw-flex tw-flex-col tw-gap-4'>
-        {filmList?.map(({ film_id, photo_cuts, title }) => (
-          <CameraRoll
-            key={film_id}
-            userId={userId}
-            filmId={film_id}
-            photos={photo_cuts}
-            title={title}
-            isLogin={getIsLogin()}
-            onEditTitle={() => handleEditTitle(title, film_id)}
+        {isFetching ? (
+          <LoadingView
+            message='필름을 가져오는 중입니다'
+            className='tw-h-[100vh] tw-bg-white'
           />
-        ))}
+        ) : (
+          filmList?.map(({ film_id, photo_cuts, title }) => (
+            <CameraRoll
+              key={film_id}
+              userId={userId}
+              filmId={film_id}
+              photos={photo_cuts}
+              title={title}
+              isLogin={getIsLogin()}
+              onEditTitle={() => handleEditTitle(title, film_id)}
+            />
+          ))
+        )}
         {!filmList && (
           <div className='tw-mt-[60px]'>
             <EmptyView isLogin={getIsLogin()} />
