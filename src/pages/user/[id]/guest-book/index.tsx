@@ -87,18 +87,20 @@ export default function GuestBookPage({ userId }: GuestBookProps) {
             <div
               key={log_id}
               className={cn(
-                'tw-h-[188px] tw-border-b tw-border-white tw-pb-4 tw-pl-5 tw-pr-5 tw-pt-5',
+                'tw-flex tw-h-[188px] tw-flex-col tw-border-b tw-border-white tw-pb-4 tw-pl-5 tw-pr-5 tw-pt-5',
                 {
                   'tw-border-r': idx % 2 === 0,
                 },
               )}
             >
-              <p className='tw-text-body1 tw-h-[108px] tw-text-white'>{text}</p>
+              <p className='tw-text-body1 tw-mb-2 tw-flex-1 tw-overflow-scroll tw-text-white'>
+                {text}
+              </p>
               <div className='tw-flex tw-items-center tw-justify-between'>
                 <div className='tw-flex tw-flex-col tw-gap-1 tw-text-white'>
                   <span className='tw-text-caption'>{name}</span>
                   <span className='tw-text-caption tw-text-grayscale-400'>
-                    {created_at}
+                    {new Date(created_at).toLocaleDateString()}
                   </span>
                 </div>
                 {getIsLogin() && (

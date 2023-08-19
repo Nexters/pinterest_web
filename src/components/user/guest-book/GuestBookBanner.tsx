@@ -18,12 +18,14 @@ interface VisitLog {
 
 const Log = ({ text, name }: Pick<VisitLog, 'name' | 'text'>) => {
   return (
-    <div className='tw-relative tw-flex tw-h-9 tw-flex-row tw-justify-between tw-py-1.5'>
-      <div className='tw-flex tw-flex-row tw-gap-2'>
-        <Icon iconType='GuestBook' />
-        <p>{text}</p>
+    <div className='tw-relative tw-flex tw-h-9 tw-w-full tw-items-center tw-justify-between tw-gap-1 tw-py-1.5'>
+      <div className='tw-flex tw-flex-1 tw-items-center tw-gap-2 tw-overflow-hidden'>
+        <Icon iconType='GuestBook' className='tw-flex-shrink-0' />
+        <p className='tw-flex-1 tw-overflow-hidden tw-text-ellipsis tw-whitespace-nowrap'>
+          {text}
+        </p>
       </div>
-      <button className='tw-text-grayscale-300'>{`-  ${name}`}</button>
+      <span className='tw-flex-shrink-0 tw-text-grayscale-300'>{`-  ${name}`}</span>
     </div>
   );
 };
