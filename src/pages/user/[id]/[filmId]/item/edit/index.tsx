@@ -6,6 +6,7 @@ import { imagesApis } from '@/query-hooks/useImages';
 import { useEditPhotoCut, useGetPhotoCut } from '@/query-hooks/usePhotoCuts';
 import photoCutsApis from '@/query-hooks/usePhotoCuts/apis';
 import photoCutsKeys from '@/query-hooks/usePhotoCuts/keys';
+import { convertImageToBase64 } from '@/utils';
 import { LoadingView } from '@/components/loading/LoadingView';
 import {
   Button,
@@ -24,10 +25,10 @@ export default function EditPage() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string>(item.image);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const [title, setTitle] = useState(item.title);
   const [text, setText] = useState(item.text);
-  const [imageIsLoading, setImageIsLoading] = useState(false);
 
   const editPhotoCut = useEditPhotoCut();
 
@@ -39,32 +40,33 @@ export default function EditPage() {
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
-      setImageIsLoading(true);
       const file = e.target.files[0];
-
-      const { image_url, presigned_url } = await imagesApis.getPresignedUrl(
-        file.name,
-      );
-      await imagesApis.uploadFile(presigned_url, file);
-      setImageIsLoading(false);
-
-      if (typeof image_url === 'string') {
-        setImage(image_url);
+      const convertedImage = await convertImageToBase64(file);
+      if (typeof convertedImage === 'string') {
+        setImage(convertedImage);
       }
+      setImageFile(file);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    let imageUrl = item.image;
+    if (imageFile) {
+      const { image_url, presigned_url } = await imagesApis.getPresignedUrl(
+        imageFile.name,
+      );
+      await imagesApis.uploadFile(presigned_url, imageFile);
+      imageUrl = image_url;
+    }
     editPhotoCut.mutate(
       {
         photo_cut_id: item.photo_cut_id,
         title,
         text,
-        image,
+        image: imageUrl,
       },
       {
-        onSuccess: () =>
-          router.push(`/user/${id}/${filmId}/item?index=${index}`),
+        onSuccess: () => router.push(`/user/${id}`),
       },
     );
   };
@@ -90,30 +92,24 @@ export default function EditPage() {
       </div>
 
       {/** 이미지 영역 */}
-      {imageIsLoading ? (
-        <LoadingView
-          message='사진을 업로드 하는 중입니다.'
-          className='tw-w-100 tw-aspect-[3/4] tw-bg-white'
+
+      <div className='tw-relative'>
+        <ImageFrame alt='item image' src={image} className='aspect-[3/4]' />
+        <input
+          type='file'
+          accept='image/*'
+          className='tw-hidden'
+          ref={inputRef}
+          onChange={handleFileUpload}
         />
-      ) : (
-        <div className='tw-relative'>
-          <ImageFrame alt='item image' src={image} className='aspect-[3/4]' />
-          <input
-            type='file'
-            accept='image/*'
-            className='tw-hidden'
-            ref={inputRef}
-            onChange={handleFileUpload}
-          />
-          <Button
-            variant='rounded'
-            onClick={handleClick}
-            className='tw-absolute tw-bottom-3.5 tw-right-5 tw-h-12 tw-w-12 tw-bg-white'
-          >
-            <Icon iconType='Camera' width={32} height={32} />
-          </Button>
-        </div>
-      )}
+        <Button
+          variant='rounded'
+          onClick={handleClick}
+          className='tw-absolute tw-bottom-3.5 tw-right-5 tw-h-12 tw-w-12 tw-bg-white'
+        >
+          <Icon iconType='Camera' width={32} height={32} />
+        </Button>
+      </div>
 
       {/** 본문 입력 영역 */}
       <div className='tw-flex tw-flex-col tw-gap-3.5 tw-px-5 tw-py-6'>

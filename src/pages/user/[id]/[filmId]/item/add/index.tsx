@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { imagesApis } from '@/query-hooks/useImages';
 import { useCreatePhotoCut } from '@/query-hooks/usePhotoCuts';
+import { convertImageToBase64 } from '@/utils';
 import { LoadingView } from '@/components/loading/LoadingView';
 import {
   Dimmed,
@@ -23,11 +24,12 @@ export default function AddPage() {
   const { id, filmId } = router.query;
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [image, setImage] = useState<string | null>(null);
 
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const [imageIsLoading, setImageIsLoading] = useState(false);
+  // const [imageIsLoading, setImageIsLoading] = useState(false);
 
   const createPhotoCut = useCreatePhotoCut();
 
@@ -39,32 +41,34 @@ export default function AddPage() {
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
-      setImageIsLoading(true);
       const file = e.target.files[0];
-      const { image_url, presigned_url } = await imagesApis.getPresignedUrl(
-        file.name,
-      );
-      await imagesApis.uploadFile(presigned_url, file);
-      setImageIsLoading(false);
-
-      if (typeof image_url === 'string') {
-        setImage(image_url);
+      const convertedImage = await convertImageToBase64(file);
+      if (typeof convertedImage === 'string') {
+        setImage(convertedImage);
       }
+      setImageFile(file);
     }
   };
 
-  const handleSubmit = () => {
-    createPhotoCut.mutate(
-      {
-        film_id: Number(filmId),
-        title: String(title),
-        text,
-        image: String(image),
-      },
-      {
-        onSuccess: () => router.push(`/user/${id}`),
-      },
-    );
+  const handleSubmit = async () => {
+    if (imageFile) {
+      const { image_url, presigned_url } = await imagesApis.getPresignedUrl(
+        imageFile.name,
+      );
+      await imagesApis.uploadFile(presigned_url, imageFile);
+
+      createPhotoCut.mutate(
+        {
+          film_id: Number(filmId),
+          title: String(title),
+          text,
+          image: String(image_url),
+        },
+        {
+          onSuccess: () => router.push(`/user/${id}`),
+        },
+      );
+    }
   };
 
   return (
@@ -91,30 +95,20 @@ export default function AddPage() {
       {image ? (
         <ImageFrame alt='item image' src={image} className='aspect-[3/4]' />
       ) : (
-        <>
-          {imageIsLoading ? (
-            <LoadingView
-              message='사진을 업로드 하는 중입니다.'
-              className='tw-w-100 tw-aspect-[3/4] tw-bg-black'
-              darkMode
-            />
-          ) : (
-            <div
-              className='tw-flex tw-aspect-[3/4] tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-bg-black'
-              onClick={handleClick}
-            >
-              <input
-                type='file'
-                accept='image/*'
-                className='tw-hidden'
-                ref={inputRef}
-                onChange={handleFileUpload}
-              />
-              <Icon iconType='Plus' width={68} height={68} color='#F3F3F3' />
-              <p className='tw-text-button-eng tw-text-gray-100'>ADD</p>
-            </div>
-          )}
-        </>
+        <div
+          className='tw-flex tw-aspect-[3/4] tw-flex-col tw-items-center tw-justify-center tw-gap-2 tw-bg-black'
+          onClick={handleClick}
+        >
+          <input
+            type='file'
+            accept='image/*'
+            className='tw-hidden'
+            ref={inputRef}
+            onChange={handleFileUpload}
+          />
+          <Icon iconType='Plus' width={68} height={68} color='#F3F3F3' />
+          <p className='tw-text-button-eng tw-text-gray-100'>ADD</p>
+        </div>
       )}
 
       {/** 본문 입력 영역 */}
